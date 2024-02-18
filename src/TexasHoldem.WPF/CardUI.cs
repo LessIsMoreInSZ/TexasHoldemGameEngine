@@ -8,14 +8,18 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using TexasHoldem.Logic;
+using TexasHoldem.Logic.Cards;
 
 namespace TexasHoldem.WPF
 {
-    public class Card:Control
+    public class CardUI:Control
     {
         private static  string Dir =Environment.CurrentDirectory+ @"\Assets\";
         private Image image;
 
+
+        //***
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -42,17 +46,17 @@ namespace TexasHoldem.WPF
             set { SetValue(SuitProperty, value); }
         }
         public static readonly DependencyProperty PictureProperty =
-            DependencyProperty.Register("Picture", typeof(string), typeof(Card), new PropertyMetadata(Dir+"d1.png"));
+            DependencyProperty.Register("Picture", typeof(string), typeof(CardUI), new PropertyMetadata(Dir+"d1.png"));
 
 
 
 
         public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(Value), typeof(Card), new PropertyMetadata(Value.Zero, OnValueChanged));
+            DependencyProperty.Register("Value", typeof(Value), typeof(CardUI), new PropertyMetadata(Value.Zero, OnValueChanged));
 
         private static void OnValueChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var card = (Card)d;
+            var card = (CardUI)d;
             var value = (Value)e.NewValue;
             switch (value)
             {
@@ -87,11 +91,11 @@ namespace TexasHoldem.WPF
 
 
         public static readonly DependencyProperty SuitProperty =
-            DependencyProperty.Register("Suit", typeof(Suit), typeof(Card), new PropertyMetadata(Suit.None, OnSuitChanged));
+            DependencyProperty.Register("Suit", typeof(Suit), typeof(CardUI), new PropertyMetadata(Suit.None, OnSuitChanged));
 
         private static void OnSuitChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var card = (Card)d;
+            var card = (CardUI)d;
             var suit = (Suit)e.NewValue;
             var shortPath = card.Picture.Replace(Dir, "");
             var cap = shortPath[0];

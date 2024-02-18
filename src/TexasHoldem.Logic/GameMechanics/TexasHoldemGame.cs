@@ -118,26 +118,40 @@
             var shifted = this.allPlayers.ToList();
 
             // While at least two players have money
-            while (this.allPlayers.WithMoney().Count() > 1)
-            {
-                this.HandsPlayed++;
+            //while (this.allPlayers.WithMoney().Count() > 1)
+            //{
+            //    this.HandsPlayed++;
 
-                // Every 10 hands the blind increases
-                // var smallBlind = SmallBlinds[(this.HandsPlayed - 1) / 10];
-                var smallBlind = SmallBlinds[0];
+            //    // Every 10 hands the blind increases
+            //    // var smallBlind = SmallBlinds[(this.HandsPlayed - 1) / 10];
+            //    var smallBlind = SmallBlinds[0];
 
-                // Players are shifted in order of priority to make a move
-                shifted = shifted.WithMoney().ToList();
-                shifted.Add(shifted.First());
-                shifted.RemoveAt(0);
+            //    // Players are shifted in order of priority to make a move
+            //    shifted = shifted.WithMoney().ToList();
+            //    shifted.Add(shifted.First());
+            //    shifted.RemoveAt(0);
 
-                // Rotate players
-                IHandLogic hand = new HandLogic(shifted, this.HandsPlayed, smallBlind);
+            //    // Rotate players
+            //    IHandLogic hand = new HandLogic(shifted, this.HandsPlayed, smallBlind);
 
-                hand.Play();
+            //    hand.Play();
 
-                this.Rebuy();
-            }
+            //    this.Rebuy();
+            //}
+
+            this.HandsPlayed++;
+
+            // Every 10 hands the blind increases
+            // var smallBlind = SmallBlinds[(this.HandsPlayed - 1) / 10];
+            var smallBlind = SmallBlinds[0];
+
+            // Players are shifted in order of priority to make a move
+            shifted = shifted.WithMoney().ToList();
+            shifted.Add(shifted.First());
+            shifted.RemoveAt(0);
+
+            // Rotate players
+            IHandLogic hand = new HandLogic(shifted, this.HandsPlayed, smallBlind);
         }
     }
 }

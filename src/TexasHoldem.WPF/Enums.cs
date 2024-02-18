@@ -9,10 +9,10 @@ namespace TexasHoldem.WPF
     public enum Suit
     {
         None,
-        Hearts,
-        Spades,
-        Clubs,
-        Diamonds
+        Hearts,//红心
+        Spades,//黑桃
+        Clubs,//梅花
+        Diamonds//方块
     }
     public enum Value
     {

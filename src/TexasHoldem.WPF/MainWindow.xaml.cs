@@ -23,16 +23,16 @@ namespace TexasHoldem.WPF
         public MainWindow()
         {
             InitializeComponent();
-            List<Card> deck = new();
+            List<CardUI> deck = new();
             for (int i = 1; i < 5; i++)
             {
                 for (int j = 1; j < 14; j++)
                 {
-                    deck.Add(new Card { Value = (Value)j, Suit = (Suit)i });
+                    deck.Add(new CardUI { Value = (Value)j, Suit = (Suit)i });
                 }
             }
-            deck.Add(new Card { Value = Value.BigJoker });
-            deck.Add(new Card { Value = Value.LittleJoker });
+            deck.Add(new CardUI { Value = Value.BigJoker });
+            deck.Add(new CardUI { Value = Value.LittleJoker });
             lb.ItemsSource = deck;
         }
     }

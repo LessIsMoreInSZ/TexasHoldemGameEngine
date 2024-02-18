@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AI\TexasHoldem.AI.DummyPlayer\TexasHoldem.AI.DummyPlayer.csproj" />
+    <ProjectReference Include="..\AI\TexasHoldem.AI.SmartPlayer\TexasHoldem.AI.SmartPlayer.csproj" />
+    <ProjectReference Include="..\TexasHoldem.Logic\TexasHoldem.Logic.csproj" />
+    <ProjectReference Include="..\UI\TexasHoldem.UI.Console\TexasHoldem.UI.Console.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Assets\bj.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

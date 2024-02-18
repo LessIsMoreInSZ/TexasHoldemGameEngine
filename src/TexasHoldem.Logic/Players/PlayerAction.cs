@@ -33,7 +33,7 @@
         }
 
         /// <summary>
-        /// Creates a new object containing information about the player action and the raise amount
+        /// Creates a new aobject containing information about the player action and the raise amount
         /// </summary>
         /// <param name="withAmount">
         /// The amount to raise with.
