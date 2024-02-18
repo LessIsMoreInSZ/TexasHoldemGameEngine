@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,10 +13,11 @@ namespace TexasHoldem.WPF
     public class PokerPlayer : BasePlayer
     {
         private readonly int row;
+        private readonly IEventAggregator _aggregator;
 
-        public PokerPlayer(int row, int buyIn = -1)
+        public PokerPlayer(IEventAggregator aggregator, int buyIn = -1)
         {
-            this.row = row;
+            _aggregator = aggregator;
             this.BuyIn = buyIn;
         }
 

@@ -7,6 +7,10 @@ using TexasHoldem.Logic.Cards;
 using TexasHoldem.Logic.Players;
 using TexasHoldem.UI.Console;
 using TexasHoldem.Logic.Extensions;
+using System.Collections.Specialized;
+using System.Windows.Data;
+using Prism.Events;
+
 namespace TexasHoldem.WPF
 {
     public class PokerUiDecorator : PlayerDecorator
@@ -19,17 +23,16 @@ namespace TexasHoldem.WPF
 
         private readonly int commonRow;
 
+        private IEventAggregator aggregator;
+
         private Card firstCard;
 
         private Card secondCard;
 
-        public PokerUiDecorator(IPlayer player, int row, int width, int commonRow)
+        public PokerUiDecorator(IEventAggregator _aggregator, IPlayer player)
             : base(player)
         {
-            this.row = row;
-            this.width = width;
-            this.commonRow = commonRow;
-
+            this.aggregator = _aggregator;
             //this.DrawGameBox();
         }
 
@@ -46,8 +49,8 @@ namespace TexasHoldem.WPF
             ////ConsoleHelper.WriteOnConsole(this.row + 1, 2, context.MoneyLeft.ToString());
             this.firstCard = context.FirstCard.DeepClone();
             this.secondCard = context.SecondCard.DeepClone();
-            //this.DrawSingleCard(this.row + 1, 10, this.firstCard);
-            //this.DrawSingleCard(this.row + 1, 14, this.secondCard);
+            this.DrawSingleCard(this.firstCard);
+            this.DrawSingleCard(this.secondCard);
 
             base.StartHand(context);
         }
@@ -133,7 +136,8 @@ namespace TexasHoldem.WPF
             // Clear the first common row
             //ConsoleHelper.WriteOnConsole(this.commonRow, 0, new string(' ', this.width - 1));
 
-            this.DrawCommunityCards();
+            //20240218
+            //this.DrawCommunityCards();
 
             var potAsString = "Pot: " + pot;
             //ConsoleHelper.WriteOnConsole(this.commonRow, this.width - potAsString.Length - 2, potAsString);
@@ -185,7 +189,7 @@ namespace TexasHoldem.WPF
 
                 foreach (var communityCard in this.CommunityCards)
                 {
-                    this.DrawSingleCard(this.commonRow, cardsStartCol + (cardIndex * 4) + spacing, communityCard);
+                    this.DrawSingleCard(communityCard);
                     cardIndex++;
 
                     spacing += communityCard.Type == CardType.Ten ? 1 : 0;
@@ -193,9 +197,10 @@ namespace TexasHoldem.WPF
             }
         }
 
-        private void DrawSingleCard(int row, int col, Card card)
+        private void DrawSingleCard(Card card)
         {
             var cardColor = this.GetCardColor(card);
+            aggregator.GetEvent<CardEvent>().Publish(card);
             //ConsoleHelper.WriteOnConsole(row, col, " " + card + " ", cardColor, ConsoleColor.White);
             //ConsoleHelper.WriteOnConsole(row, col + 2 + card.ToString().Length, " ");
         }
