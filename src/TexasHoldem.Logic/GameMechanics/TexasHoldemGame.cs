@@ -152,6 +152,7 @@
 
             // Rotate players
             IHandLogic hand = new HandLogic(shifted, this.HandsPlayed, smallBlind);
+            hand.Play();
         }
     }
 }
