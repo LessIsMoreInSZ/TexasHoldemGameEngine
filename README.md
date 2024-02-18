@@ -1,6 +1,7 @@
 # Texas Hold'em Game Engine
 
-Texas Hold 'em Poker Game Engine
+This is Forked from Texas Hold 'em Poker Game Engine.
+I like Texas Hold’em and I want use WPF to show it.
 
 ## Build status
 
