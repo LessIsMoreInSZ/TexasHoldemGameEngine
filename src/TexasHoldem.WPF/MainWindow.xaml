@@ -9,13 +9,297 @@
     Width="800"
     Height="450"
     mc:Ignorable="d">
-    <Grid>
-        <ListBox Name="lb">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Button.Click" SourceName="playBt">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card1"
+                        Storyboard.TargetProperty="X"
+                        From="8"
+                        To="-94"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card1"
+                        Storyboard.TargetProperty="Y"
+                        From="0"
+                        To="206"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card2"
+                        Storyboard.TargetProperty="X"
+                        From="26"
+                        To="44"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card2"
+                        Storyboard.TargetProperty="Y"
+                        From="0"
+                        To="206"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card3"
+                        Storyboard.TargetProperty="X"
+                        From="20"
+                        To="116"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card3"
+                        Storyboard.TargetProperty="Y"
+                        From="0"
+                        To="206"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card4"
+                        Storyboard.TargetProperty="X"
+                        From="16"
+                        To="-24"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card4"
+                        Storyboard.TargetProperty="Y"
+                        From="0"
+                        To="206"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card5"
+                        Storyboard.TargetProperty="X"
+                        From="38"
+                        To="186"
+                        Duration="0:0:0.5" />
+                    <DoubleAnimation
+                        FillBehavior="Stop"
+                        Storyboard.TargetName="card5"
+                        Storyboard.TargetProperty="Y"
+                        From="0"
+                        To="206"
+                        Duration="0:0:0.5" />
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="80" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="PaleVioletRed" />
+        </Style>
+        <Style x:Key="DeckBorder" TargetType="Border">
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="CornerRadius" Value="2" />
+            <Setter Property="Height" Value="80" />
+            <Setter Property="Width" Value="60" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Background">
+                <Setter.Value>
+                    <ImageBrush ImageSource="Assets/back.jpg" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <!--<ListBox
+      Name="lb">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Columns="13" />
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
-        </ListBox>
+        </ListBox>-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Border
+            HorizontalAlignment="Left"
+            BorderBrush="Black"
+            BorderThickness="0.5">
+            <DockPanel LastChildFill="False">
+                <Button
+                    Name="playBt"
+                    Click="playBt_Click"
+                    Content="Play"
+                    DockPanel.Dock="Top" />
+                <!--<Button Background="Red" Content="Quit" DockPanel.Dock="Bottom" />-->
+            </DockPanel>
+        </Border>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.Resources>
+                <Style BasedOn="{StaticResource DeckBorder}" TargetType="Border" />
+            </Grid.Resources>
+            <Border />
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="2" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="4" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="6" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform x:Name="card1" X="8" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="10" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="12" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="14" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform x:Name="card4" X="16" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="18" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="20" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="22" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="24" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform x:Name="card2" X="26" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="28" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="30" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="32" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="34" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="36" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform x:Name="card5" X="38" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="40" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="42" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform x:Name="card3" X="44" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="46" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="48" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="50" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="52" />
+                </Border.RenderTransform>
+            </Border>
+            <Border>
+                <Border.RenderTransform>
+                    <TranslateTransform X="54" />
+                </Border.RenderTransform>
+            </Border>
+        </Grid>
+        <Grid Grid.Row="1" Panel.ZIndex="-1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Image
+                Height="80"
+                Margin="5"
+                Source="Assets/avatar.jpg" />
+            <ListBox
+                x:Name="myCards"
+                Grid.Column="1"
+                Height="100">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
+
     </Grid>
 </Window>

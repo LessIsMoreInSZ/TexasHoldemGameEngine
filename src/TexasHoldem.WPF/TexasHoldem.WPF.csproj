@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\avatar.jpg" />
+    <None Remove="Assets\back.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Prism.Unity" Version="8.1.97" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
@@ -17,6 +22,11 @@
     <ProjectReference Include="..\AI\TexasHoldem.AI.SmartPlayer\TexasHoldem.AI.SmartPlayer.csproj" />
     <ProjectReference Include="..\TexasHoldem.Logic\TexasHoldem.Logic.csproj" />
     <ProjectReference Include="..\UI\TexasHoldem.UI.Console\TexasHoldem.UI.Console.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\avatar.jpg" />
+    <Resource Include="Assets\back.jpg" />
   </ItemGroup>
 
   <ItemGroup>

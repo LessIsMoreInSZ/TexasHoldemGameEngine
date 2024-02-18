@@ -17,7 +17,14 @@ namespace TexasHoldem.WPF
     {
         private static  string Dir =Environment.CurrentDirectory+ @"\Assets\";
         private Image image;
+        public bool IsShown
+        {
+            get { return (bool)GetValue(IsShownProperty); }
+            set { SetValue(IsShownProperty, value); }
+        }
 
+        public static readonly DependencyProperty IsShownProperty =
+            DependencyProperty.Register("IsShown", typeof(bool), typeof(CardUI), new PropertyMetadata(false));
 
         //***
         public override void OnApplyTemplate()

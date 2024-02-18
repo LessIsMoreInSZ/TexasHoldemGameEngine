@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TexasHoldem.Logic.Cards;
 
 namespace TexasHoldem.WPF
 {
@@ -23,17 +24,37 @@ namespace TexasHoldem.WPF
         public MainWindow()
         {
             InitializeComponent();
-            List<CardUI> deck = new();
-            for (int i = 1; i < 5; i++)
+            //List<CardUI> deck = new();
+            //for (int i = 1; i < 5; i++)
+            //{
+            //    for (int j = 1; j < 14; j++)
+            //    {
+            //        deck.Add(new CardUI { Value = (Value)j, Suit = (Suit)i });
+            //    }
+            //}
+            //deck.Add(new CardUI { Value = Value.BigJoker });
+            //deck.Add(new CardUI { Value = Value.LittleJoker });
+            //lb.ItemsSource = deck;
+        }
+        private async void playBt_Click(object sender, RoutedEventArgs e)
+        {
+            myCards.ItemsSource = null;
+            await Task.Delay(500);
+            List<CardUI> cards = new()
             {
-                for (int j = 1; j < 14; j++)
-                {
-                    deck.Add(new CardUI { Value = (Value)j, Suit = (Suit)i });
-                }
+                new(){Value=Value.BigJoker},
+                new(){Value=Value.BigJoker},
+                new(){Value=Value.BigJoker},
+                new(){Value=Value.BigJoker},
+                new(){Value=Value.BigJoker}
+            };
+            myCards.ItemsSource = cards;
+            foreach (CardUI card in cards)
+            {
+                await Task.Delay(50);
+                card.IsShown = true;
             }
-            deck.Add(new CardUI { Value = Value.BigJoker });
-            deck.Add(new CardUI { Value = Value.LittleJoker });
-            lb.ItemsSource = deck;
+
         }
     }
 }

@@ -3,24 +3,63 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:TexasHoldem.WPF">
     <Style TargetType="local:CardUI">
-        <Setter Property="Width" Value="40" />
+        <Setter Property="Width" Value="60" />
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Height" Value="50" />
+        <Setter Property="Height" Value="80" />
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:CardUI">
                     <Border
+                        x:Name="bd"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        CornerRadius="2">
-                        <Image
-                            Name="image"
-                            Source="{TemplateBinding Picture}"
-                            Stretch="Uniform" />
+                        ClipToBounds="True"
+                        CornerRadius="2"
+                        RenderTransformOrigin="0.5,0.5">
+                        <Grid x:Name="grid">
+                            <Image
+                                Name="image"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Source="{TemplateBinding Picture}"
+                                Stretch="Uniform" />
+                            <Image
+                                Name="mask"
+                                Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Source="Assets/back.jpg"
+                                Stretch="Uniform" />
+                        </Grid>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsShown" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames
+                                            Storyboard.TargetName="bd"
+                                            Storyboard.TargetProperty="Width"
+                                            Duration="0:0:0.6">
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0" Value="60" />
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0.6" Value="60" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames
+                                            Storyboard.TargetName="mask"
+                                            Storyboard.TargetProperty="Opacity"
+                                            Duration="0:0:0.3">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -21,7 +21,8 @@ namespace TexasHoldem.WPF
     {
         protected override Window CreateShell()
         {
-            return Container.Resolve<ShowPoker>();
+            //return Container.Resolve<ShowPoker>();
+            return Container.Resolve<MainWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
