@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30309.148
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{4FD9DCC0-C03A-48A4-AC10-BE144B0270A8}"
 EndProject
@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TexasHoldem.AI.DummyPlayer"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TexasHoldem.AI.SmartPlayer", "AI\TexasHoldem.AI.SmartPlayer\TexasHoldem.AI.SmartPlayer.csproj", "{339B429E-F937-47DE-B8A6-B2A895378E85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TexasHoldem.UI.Console", "UI\TexasHoldem.UI.Console\TexasHoldem.UI.Console.csproj", "{819C34BC-F44C-4F04-8095-FBCC79192AB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TexasHoldem.UI.Console", "UI\TexasHoldem.UI.Console\TexasHoldem.UI.Console.csproj", "{819C34BC-F44C-4F04-8095-FBCC79192AB0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TexasHoldem.Logic.Tests", "Tests\TexasHoldem.Logic.Tests\TexasHoldem.Logic.Tests.csproj", "{2D9933A9-A19B-4A5E-9BDE-280FB864797E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TexasHoldem.Logic.Tests", "Tests\TexasHoldem.Logic.Tests\TexasHoldem.Logic.Tests.csproj", "{2D9933A9-A19B-4A5E-9BDE-280FB864797E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TexasHoldem.Tests.GameSimulations", "Tests\TexasHoldem.Tests.GameSimulations\TexasHoldem.Tests.GameSimulations.csproj", "{E0D97FBC-3BB2-4F29-BBB3-283459E53435}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TexasHoldem.Tests.GameSimulations", "Tests\TexasHoldem.Tests.GameSimulations\TexasHoldem.Tests.GameSimulations.csproj", "{E0D97FBC-3BB2-4F29-BBB3-283459E53435}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TexasHoldem.WPF", "TexasHoldem.WPF\TexasHoldem.WPF.csproj", "{CC5EFC93-ABDC-40E1-AA74-85C21118AF72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{E0D97FBC-3BB2-4F29-BBB3-283459E53435}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0D97FBC-3BB2-4F29-BBB3-283459E53435}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0D97FBC-3BB2-4F29-BBB3-283459E53435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5EFC93-ABDC-40E1-AA74-85C21118AF72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5EFC93-ABDC-40E1-AA74-85C21118AF72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5EFC93-ABDC-40E1-AA74-85C21118AF72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5EFC93-ABDC-40E1-AA74-85C21118AF72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
