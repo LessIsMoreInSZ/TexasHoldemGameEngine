@@ -11,6 +11,10 @@ using TexasHoldem.AI.DummyPlayer;
 using TexasHoldem.AI.SmartPlayer;
 using TexasHoldem.Logic.GameMechanics;
 using TexasHoldem.Logic.Players;
+using TexasHoldem.WPF.Constants;
+using TexasHoldem.WPF.Models;
+using TexasHoldem.WPF.ViewModels;
+using TexasHoldem.WPF.Views;
 
 namespace TexasHoldem.WPF
 {
@@ -19,14 +23,18 @@ namespace TexasHoldem.WPF
     /// </summary>
     public partial class App : PrismApplication
     {
+        public static int PlayerNumer = 0;
+        public static Player Player;
         protected override Window CreateShell()
         {
             //return Container.Resolve<ShowPoker>();
-            return Container.Resolve<MainWindow>();
+            return Container.Resolve<ShellWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterForNavigation<ShellWindow, ShellWindowViewModel>();
+            containerRegistry.RegisterForNavigation<IndexView, IndexViewModel>(PageKeys.Index);
             containerRegistry.RegisterForNavigation<ShowPoker, ShowPokerVM>();
         }
     }

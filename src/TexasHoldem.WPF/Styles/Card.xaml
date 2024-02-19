@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:TexasHoldem.WPF">
-    <Style TargetType="local:CardUI">
+    xmlns:control="clr-namespace:TexasHoldem.WPF.Controls">
+    <Style TargetType="control:CardUI">
         <Setter Property="Width" Value="60" />
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="BorderThickness" Value="1" />
@@ -12,7 +12,7 @@
 
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local:CardUI">
+                <ControlTemplate TargetType="control:CardUI">
                     <Border
                         x:Name="bd"
                         BorderBrush="{TemplateBinding BorderBrush}"

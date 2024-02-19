@@ -11,11 +11,11 @@ using System.Windows.Media.Imaging;
 using TexasHoldem.Logic;
 using TexasHoldem.Logic.Cards;
 
-namespace TexasHoldem.WPF
+namespace TexasHoldem.WPF.Controls
 {
-    public class CardUI:Control
+    public class CardUI : Control
     {
-        private static  string Dir =Environment.CurrentDirectory+ @"\Assets\";
+        private static string Dir = Environment.CurrentDirectory + @"\Assets\";
         private Image image;
         public bool IsShown
         {
@@ -33,7 +33,7 @@ namespace TexasHoldem.WPF
             image = GetTemplateChild("image") as Image;
             image.Source = new BitmapImage(new Uri(Picture));
         }
-    
+
         [Bindable(true)]
         public string Picture
         {
@@ -53,7 +53,7 @@ namespace TexasHoldem.WPF
             set { SetValue(SuitProperty, value); }
         }
         public static readonly DependencyProperty PictureProperty =
-            DependencyProperty.Register("Picture", typeof(string), typeof(CardUI), new PropertyMetadata(Dir+"d1.png"));
+            DependencyProperty.Register("Picture", typeof(string), typeof(CardUI), new PropertyMetadata(Dir + "d1.png"));
 
 
 
@@ -80,14 +80,14 @@ namespace TexasHoldem.WPF
                 case Value.Jack:
                 case Value.Queen:
                 case Value.King:
-                    var val = card.Picture.Replace(Dir,"").Substring(1);
-                    card.Picture = card.Picture.Replace(val, ((int)value).ToString())+".png";
+                    var val = card.Picture.Replace(Dir, "").Substring(1);
+                    card.Picture = card.Picture.Replace(val, ((int)value).ToString()) + ".png";
                     break;
                 case Value.BigJoker:
-                    card.Picture =Dir+ "bj.png";
+                    card.Picture = Dir + "bj.png";
                     break;
                 case Value.LittleJoker:
-                    card.Picture =Dir+ "lj.png";
+                    card.Picture = Dir + "lj.png";
                     break;
                 default:
                     break;
@@ -111,7 +111,7 @@ namespace TexasHoldem.WPF
                 case Suit.None:
                     break;
                 case Suit.Hearts:
-                    card.Picture= Dir+shortPath.Replace(cap, 'h');
+                    card.Picture = Dir + shortPath.Replace(cap, 'h');
                     break;
                 case Suit.Spades:
                     card.Picture = Dir + shortPath.Replace(cap, 's');
