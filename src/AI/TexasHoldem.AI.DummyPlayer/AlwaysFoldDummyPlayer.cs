@@ -6,7 +6,7 @@
 
     internal class AlwaysFoldDummyPlayer : BasePlayer
     {
-        public override string Name { get; } = "AlwaysFoldDummyPlayer_" + Guid.NewGuid();
+        public override string Name { get; set; } = "AlwaysFoldDummyPlayer_" + Guid.NewGuid();
 
         public override int BuyIn { get; } = -1;
 

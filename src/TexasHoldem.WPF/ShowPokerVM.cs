@@ -25,13 +25,14 @@ namespace TexasHoldem.WPF
             this.aggregator = _aggregator;
             aggregator.GetEvent<CardEvent>().Subscribe(ShowCard);
             aggregator.GetEvent<TextChangeEvent>().Subscribe(ShowText);
+            aggregator.GetEvent<CommCardEvent>().Subscribe(ShowCommCard);
 
-            Players.Add(new DummyPlayer());
-            Players.Add(new SmartPlayer());
-            Players.Add(new PokerPlayer(aggregator));
-            Players.Add(new DummyPlayer());
-            Players.Add(new SmartPlayer());
-            Players.Add(new DummyPlayer());
+            Players.Add(new DummyPlayer() { Name = "PlayerA" });
+            Players.Add(new SmartPlayer() { Name = "PlayerB" });
+            Players.Add(new PokerPlayer(aggregator) { Name = "PlayerC" });
+            Players.Add(new DummyPlayer() { Name = "PlayerD" });
+            Players.Add(new SmartPlayer() { Name = "PlayerE" });
+            Players.Add(new DummyPlayer() { Name = "PlayerF" });
 
             var game = Game();
             game.Start();
@@ -44,6 +45,14 @@ namespace TexasHoldem.WPF
             set { str6 = value; RaisePropertyChanged(); }
         }
 
+        private List<CardUI> commCards = new List<CardUI>();
+        public List<CardUI> CommCards
+        {
+            get { return commCards; }
+            set { commCards = value; RaisePropertyChanged(); }
+        }
+
+        #region player hand card
         private List<CardUI> listPlayerA = new List<CardUI>();
         public List<CardUI> ListPlayerA
         {
@@ -85,6 +94,9 @@ namespace TexasHoldem.WPF
             get { return listPlayerF; }
             set { listPlayerF = value; RaisePropertyChanged(); }
         }
+        #endregion
+
+        #region player textbox
 
         private string playerACurrentPot;
         public string PlayerACurrentPot
@@ -106,6 +118,117 @@ namespace TexasHoldem.WPF
             get { return playerAAction; }
             set { playerAAction = value; RaisePropertyChanged(); }
         }
+
+        //B
+        private string playerBCurrentPot;
+        public string PlayerBCurrentPot
+        {
+            get { return playerBCurrentPot; }
+            set { playerBCurrentPot = value; RaisePropertyChanged(); }
+        }
+
+        private string playerBStatus;
+        public string PlayerBStatus
+        {
+            get { return playerBStatus; }
+            set { playerBStatus = value; RaisePropertyChanged(); }
+        }
+
+        private string playerBAction;
+        public string PlayerBAction
+        {
+            get { return playerBAction; }
+            set { playerBAction = value; RaisePropertyChanged(); }
+        }
+
+        //C
+        private string playerCCurrentPot;
+        public string PlayerCCurrentPot
+        {
+            get { return playerCCurrentPot; }
+            set { playerCCurrentPot = value; RaisePropertyChanged(); }
+        }
+
+        private string playerCStatus;
+        public string PlayerCStatus
+        {
+            get { return playerCStatus; }
+            set { playerCStatus = value; RaisePropertyChanged(); }
+        }
+
+        private string playerCAction;
+        public string PlayerCAction
+        {
+            get { return playerCAction; }
+            set { playerCAction = value; RaisePropertyChanged(); }
+        }
+
+        //D
+        private string playerDCurrentPot;
+        public string PlayerDCurrentPot
+        {
+            get { return playerDCurrentPot; }
+            set { playerDCurrentPot = value; RaisePropertyChanged(); }
+        }
+
+        private string playerDStatus;
+        public string PlayerDStatus
+        {
+            get { return playerDStatus; }
+            set { playerDStatus = value; RaisePropertyChanged(); }
+        }
+
+        private string playerDAction;
+        public string PlayerDAction
+        {
+            get { return playerDAction; }
+            set { playerDAction = value; RaisePropertyChanged(); }
+        }
+
+        //E
+        private string playerECurrentPot;
+        public string PlayerECurrentPot
+        {
+            get { return playerECurrentPot; }
+            set { playerECurrentPot = value; RaisePropertyChanged(); }
+        }
+
+        private string playerEStatus;
+        public string PlayerEStatus
+        {
+            get { return playerEStatus; }
+            set { playerEStatus = value; RaisePropertyChanged(); }
+        }
+
+        private string playerEAction;
+        public string PlayerEAction
+        {
+            get { return playerEAction; }
+            set { playerEAction = value; RaisePropertyChanged(); }
+        }
+
+        //F
+        private string playerFCurrentPot;
+        public string PlayerFCurrentPot
+        {
+            get { return playerFCurrentPot; }
+            set { playerFCurrentPot = value; RaisePropertyChanged(); }
+        }
+
+        private string playerFStatus;
+        public string PlayerFStatus
+        {
+            get { return playerFStatus; }
+            set { playerFStatus = value; RaisePropertyChanged(); }
+        }
+
+        private string playerFAction;
+        public string PlayerFAction
+        {
+            get { return playerFAction; }
+            set { playerFAction = value; RaisePropertyChanged(); }
+        }
+        #endregion
 
         private ITexasHoldemGame Game()
         {
@@ -184,6 +307,19 @@ namespace TexasHoldem.WPF
 
         }
 
+        private void ShowCommCard(IReadOnlyCollection<Card> cards)
+        {
+            CommCards.Clear();
+            foreach (var card in cards)
+            {
+                CardUI cardUI = new CardUI();
+                cardUI.Suit = EnumChangeCardSuit(card.Suit);
+                cardUI.Value = EnumChangeCardType(card.Type);
+                cardUI.IsShown = true;
+                CommCards.Add(cardUI);
+            }
+        }
+
         private void ShowText(TextChangeEventPara para)
         {
             if (para != null)
@@ -195,59 +331,59 @@ namespace TexasHoldem.WPF
                             if (para.CurrentControl == CurrentControl.CurrentPot)
                                 PlayerACurrentPot = para.message;
                             else if (para.CurrentControl == CurrentControl.Status)
-                                playerAStatus = para.message;
+                                PlayerAStatus = para.message;
                             else if (para.CurrentControl == CurrentControl.Action)
-                                playerAAction = para.message;
+                                PlayerAAction = para.message;
                                 break;
                         }
                     case "PlayerB":
                         {
-                            //if (para.CurrentControl == CurrentControl.CurrentPot)
-                            //    PlayerBCurrentPot = para.message;
-                            //else if (para.CurrentControl == CurrentControl.Status)
-                            //    PlayerBStatus = para.message;
-                            //else if (para.CurrentControl == CurrentControl.Action)
-                            //    PlayerBAction = para.message;
+                            if (para.CurrentControl == CurrentControl.CurrentPot)
+                                PlayerBCurrentPot = para.message;
+                            else if (para.CurrentControl == CurrentControl.Status)
+                                PlayerBStatus = para.message;
+                            else if (para.CurrentControl == CurrentControl.Action)
+                                PlayerBAction = para.message;
                             break;
                         }
                     case "PlayerC":
                         {
                             if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerACurrentPot = para.message;
+                                PlayerCCurrentPot = para.message;
                             else if (para.CurrentControl == CurrentControl.Status)
-                                playerAStatus = para.message;
+                                PlayerCStatus = para.message;
                             else if (para.CurrentControl == CurrentControl.Action)
-                                playerAAction = para.message;
+                                PlayerCAction = para.message;
                             break;
                         }
                     case "PlayerD":
                         {
                             if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerACurrentPot = para.message;
+                                PlayerDCurrentPot = para.message;
                             else if (para.CurrentControl == CurrentControl.Status)
-                                playerAStatus = para.message;
+                                PlayerDStatus = para.message;
                             else if (para.CurrentControl == CurrentControl.Action)
-                                playerAAction = para.message;
+                                PlayerDAction = para.message;
                             break;
                         }
                     case "PlayerE":
                         {
                             if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerACurrentPot = para.message;
+                                PlayerECurrentPot = para.message;
                             else if (para.CurrentControl == CurrentControl.Status)
-                                playerAStatus = para.message;
+                                PlayerAStatus = para.message;
                             else if (para.CurrentControl == CurrentControl.Action)
-                                playerAAction = para.message;
+                                PlayerAAction = para.message;
                             break;
                         }
                     case "PlayerF":
                         {
                             if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerACurrentPot = para.message;
+                                PlayerFCurrentPot = para.message;
                             else if (para.CurrentControl == CurrentControl.Status)
-                                playerAStatus = para.message;
+                                PlayerFStatus = para.message;
                             else if (para.CurrentControl == CurrentControl.Action)
-                                playerAAction = para.message;
+                                PlayerFAction = para.message;
                             break;
                         }
                 }

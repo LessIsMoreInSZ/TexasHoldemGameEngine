@@ -149,6 +149,7 @@ namespace TexasHoldem.WPF
 
             //20240218
             //this.DrawCommunityCards();
+            aggregator.GetEvent<CommCardEvent>().Publish(CommunityCards);
 
             var potAsString = "Pot: " + pot;
             //ConsoleHelper.WriteOnConsole(this.commonRow, this.width - potAsString.Length - 2, potAsString);

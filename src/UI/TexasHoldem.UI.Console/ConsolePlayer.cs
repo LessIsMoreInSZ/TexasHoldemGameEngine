@@ -14,7 +14,7 @@
             this.BuyIn = buyIn;
         }
 
-        public override string Name { get; } = "ConsolePlayer_" + Guid.NewGuid();
+        public override string Name { get; set; } = "ConsolePlayer_" + Guid.NewGuid();
 
         public override int BuyIn { get; }
 
