@@ -6,7 +6,7 @@
 
     public abstract class BasePlayer : IPlayer
     {
-        public abstract string Name { get; }
+        public abstract string Name { get; set; }
 
         public abstract int BuyIn { get; }
 

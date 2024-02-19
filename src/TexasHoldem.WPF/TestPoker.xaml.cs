@@ -225,7 +225,7 @@ namespace TexasHoldem.WPF
             {
                 this.BuyIn = buyIn;
             }
-            public override string Name => "";
+            public override string Name { get; set; }
 
             public override int BuyIn { get; }
 

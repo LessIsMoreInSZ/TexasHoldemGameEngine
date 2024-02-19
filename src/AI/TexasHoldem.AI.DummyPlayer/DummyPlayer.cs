@@ -7,7 +7,8 @@
 
     public class DummyPlayer : BasePlayer
     {
-        public override string Name { get; } = "DummyPlayer_" + Guid.NewGuid();
+
+        public override string Name { get; set; } = "DummyPlayer_" + Guid.NewGuid();
 
         public override int BuyIn { get; } = -1;
 
