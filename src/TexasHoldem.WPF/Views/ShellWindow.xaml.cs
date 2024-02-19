@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using TexasHoldem.WPF.Constants;
 using TexasHoldem.WPF.Controls;
+using TexasHoldem.WPF.Interfaces;
 
 namespace TexasHoldem.WPF.Views
 {
@@ -13,9 +14,10 @@ namespace TexasHoldem.WPF.Views
     /// </summary>
     public partial class ShellWindow : MetroWindow
     {
-        public ShellWindow(IRegionManager regionManager)
+        public ShellWindow(IRegionManager regionManager,IMetroDialogService metroDialogService)
         {
             InitializeComponent();
+            metroDialogService.Register(this);
             RegionManager.SetRegionName(mainRegion, Regions.Main);
             RegionManager.SetRegionName(left, Regions.Split);
             RegionManager.SetRegionManager(mainRegion, regionManager);
