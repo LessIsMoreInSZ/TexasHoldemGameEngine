@@ -7,9 +7,96 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="ShowPoker"
     Width="800"
-    Height="450"
+    Height="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBox Text="{Binding Str6}" />
+        <TextBox x:Name="txtCommPot" Text="{Binding Str6}" />
+        <StackPanel Width="400">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ListBox
+                    x:Name="playerA"
+                    Grid.Column="0"
+                    Width="250"
+                    Height="100"
+                    ItemsSource="{Binding ListPlayerA}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+                <StackPanel Grid.Column="1" Orientation="Vertical">
+                    <TextBlock x:Name="txtCurrentPot" Text="{Binding PlayerACurrentPot}" />
+                    <TextBlock x:Name="txtStatus" Text="{Binding PlayerAStatus}" />
+                    <TextBlock x:Name="txtAction" Text="{Binding PlayerAAction}" />
+                </StackPanel>
+            </Grid>
+
+
+            <ListBox
+                x:Name="playerB"
+                Grid.Column="1"
+                Height="100"
+                ItemsSource="{Binding ListPlayerB}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
+            <ListBox
+                x:Name="playerC"
+                Grid.Column="1"
+                Height="100"
+                ItemsSource="{Binding ListPlayerC}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
+            <ListBox
+                x:Name="playerD"
+                Grid.Column="1"
+                Height="100"
+                ItemsSource="{Binding ListPlayerD}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
+            <ListBox
+                x:Name="playerE"
+                Grid.Column="1"
+                Height="100"
+                ItemsSource="{Binding ListPlayerE}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
+            <ListBox
+                x:Name="playerF"
+                Grid.Column="1"
+                Height="100"
+                ItemsSource="{Binding ListPlayerF}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </StackPanel>
+
     </Grid>
 </Window>

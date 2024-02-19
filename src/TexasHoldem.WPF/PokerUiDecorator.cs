@@ -10,39 +10,45 @@ using TexasHoldem.Logic.Extensions;
 using System.Collections.Specialized;
 using System.Windows.Data;
 using Prism.Events;
+using TexasHoldem.WPF.Events;
 
 namespace TexasHoldem.WPF
 {
     public class PokerUiDecorator : PlayerDecorator
     {
-        private const ConsoleColor PlayerBoxColor = ConsoleColor.DarkGreen;
-
-        private readonly int row;
-
-        private readonly int width;
-
-        private readonly int commonRow;
-
         private IEventAggregator aggregator;
 
         private Card firstCard;
 
         private Card secondCard;
 
+        private IReadOnlyCollection<Card> CommunityCards { get; set; }
+
+        private void ChangeText(string playerName, CurrentControl currentControl, string message)
+        {
+            TextChangeEventPara textChangeEventPara = new TextChangeEventPara();
+            textChangeEventPara.playerName = playerName;
+            textChangeEventPara.CurrentControl = currentControl;
+            textChangeEventPara.message = message;
+            aggregator.GetEvent<TextChangeEvent>().Publish(textChangeEventPara);
+        }
+
         public PokerUiDecorator(IEventAggregator _aggregator, IPlayer player)
             : base(player)
         {
             this.aggregator = _aggregator;
-            //this.DrawGameBox();
+            
+
         }
 
-        private IReadOnlyCollection<Card> CommunityCards { get; set; }
+        
 
         public override void StartHand(IStartHandContext context)
         {
             //this.UpdateCommonRows(0, 0, new int[] { });
             var dealerSymbol = context.FirstPlayerName == this.Player.Name ? "D" : " ";
 
+            ChangeText(this.Player.Name, CurrentControl.CurrentPot, context.MoneyLeft.ToString());
             ////ConsoleHelper.WriteOnConsole(this.row + 1, 1, dealerSymbol, ConsoleColor.Green);
             ////ConsoleHelper.WriteOnConsole(this.row + 3, 2, "                            ");
 
@@ -63,6 +69,7 @@ namespace TexasHoldem.WPF
                 context.CurrentMainPot.AmountOfMoney,
                 context.CurrentSidePots.Select(s => s.AmountOfMoney));
 
+            ChangeText(this.Player.Name, CurrentControl.Status, context.RoundType+"");
             ////ConsoleHelper.WriteOnConsole(this.row + 1, this.width - 11, context.RoundType + "   ");
             ////ConsoleHelper.WriteOnConsole(this.row + 3, 2, new string(' ', this.width - 3));
             base.StartRound(context);
@@ -125,10 +132,14 @@ namespace TexasHoldem.WPF
             return action;
         }
 
+        /// <summary>
+        /// Fold 
+        /// </summary>
+        /// <param name="moneyLeft"></param>
         private void Muck(int moneyLeft)
         {
-            this.DrawMuckedSingleCard(this.row + 1, 10, this.firstCard);
-            this.DrawMuckedSingleCard(this.row + 1, 14, this.secondCard);
+            //this.DrawMuckedSingleCard(this.row + 1, 10, this.firstCard);
+            //this.DrawMuckedSingleCard(this.row + 1, 14, this.secondCard);
         }
 
         private void UpdateCommonRows(int pot, int mainPot, IEnumerable<int> sidePots)
@@ -183,7 +194,7 @@ namespace TexasHoldem.WPF
             {
                 var cardsAsString = this.CommunityCards.CardsToString();
                 var cardsLength = cardsAsString.Length / 2;
-                var cardsStartCol = (this.width / 2) - (cardsLength / 2);
+                //var cardsStartCol = (this.width / 2) - (cardsLength / 2);
                 var cardIndex = 0;
                 var spacing = 0;
 
