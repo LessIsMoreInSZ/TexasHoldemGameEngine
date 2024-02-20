@@ -25,7 +25,7 @@ namespace TexasHoldem.WPF
     /// </summary>
     public partial class App : PrismApplication
     {
-        public static int PlayerNumer = 6;
+        public static int PlayerNumber = 6;
         public static Player Player;
         protected override Window CreateShell()
         {

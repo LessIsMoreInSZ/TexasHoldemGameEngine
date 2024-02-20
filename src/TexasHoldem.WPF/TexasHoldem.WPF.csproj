@@ -11,11 +11,16 @@
     <None Remove="Assets\avatar.jpg" />
     <None Remove="Assets\back.jpg" />
     <None Remove="Assets\gfc.jfif" />
+    <None Remove="Assets\gfc.jpg" />
     <None Remove="Assets\index.jpg" />
     <None Remove="Assets\ldh.jfif" />
+    <None Remove="Assets\ldh.jpg" />
     <None Remove="Assets\pyy.jfif" />
+    <None Remove="Assets\pyy.jpg" />
     <None Remove="Assets\wyz.jfif" />
+    <None Remove="Assets\wyz.jpg" />
     <None Remove="Assets\zrf.jfif" />
+    <None Remove="Assets\zrf.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,12 +41,12 @@
   <ItemGroup>
     <Resource Include="Assets\avatar.jpg" />
     <Resource Include="Assets\back.jpg" />
-    <Resource Include="Assets\gfc.jfif" />
+    <Resource Include="Assets\gfc.jpg" />
     <Resource Include="Assets\index.jpg" />
-    <Resource Include="Assets\ldh.jfif" />
-    <Resource Include="Assets\pyy.jfif" />
-    <Resource Include="Assets\wyz.jfif" />
-    <Resource Include="Assets\zrf.jfif" />
+    <Resource Include="Assets\ldh.jpg" />
+    <Resource Include="Assets\pyy.jpg" />
+    <Resource Include="Assets\wyz.jpg" />
+    <Resource Include="Assets\zrf.jpg" />
   </ItemGroup>
 
   <ItemGroup>
