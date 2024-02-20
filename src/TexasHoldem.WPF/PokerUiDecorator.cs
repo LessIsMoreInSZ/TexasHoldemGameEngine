@@ -154,15 +154,16 @@ namespace TexasHoldem.WPF
             //this.DrawCommunityCards();
             aggregator.GetEvent<CommCardEvent>().Publish(CommunityCards);
 
-            var potAsString = "Pot: " + pot;
-            ChangeText(this.Player.Name, CurrentControl.CommPot, "Pot: " + pot);
+            //var potAsString = "Pot: " + pot;
+            var potAsString =  pot;
+            ChangeText(this.Player.Name, CurrentControl.MainCommPot, pot.ToString());
 
             //ConsoleHelper.WriteOnConsole(this.commonRow, this.width - potAsString.Length - 2, potAsString);
 
             if (sidePots.Count() == 0)
             {
                 // Clear the side pots
-                ChangeText(this.Player.Name, CurrentControl.SideCommPot, "Pot: " + 0);
+                ChangeText(this.Player.Name, CurrentControl.SideCommPot, 0.ToString());
                 //ConsoleHelper.WriteOnConsole(this.commonRow + 1, 0, new string(' ', this.width - 1));
             }
             else
@@ -176,6 +177,7 @@ namespace TexasHoldem.WPF
                 {
                     sidePotsAsString += item + " | ";
                 }
+                ChangeText(this.Player.Name, CurrentControl.SideCommPot, sidePotsAsString);
 
                 //ConsoleHelper.WriteOnConsole(this.commonRow + 1, 2, sidePotsAsString.Remove(sidePotsAsString.Length - 2, 2));
             }

@@ -16,6 +16,8 @@ using TexasHoldem.WPF.Controls;
 using System.Windows;
 using CommunityToolkit.Mvvm.Collections;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
+using Prism.Commands;
 
 namespace TexasHoldem.WPF
 {
@@ -24,16 +26,19 @@ namespace TexasHoldem.WPF
         private int playerCnt = 0;
         private IEventAggregator aggregator;
         private static readonly List<IPlayer> Players = new List<IPlayer>();
+        private PokerPlayer poker;
         public ShowPokerVM(IEventAggregator _aggregator)
         {
             this.aggregator = _aggregator;
             aggregator.GetEvent<CardEvent>().Subscribe(ShowCard);
             aggregator.GetEvent<TextChangeEvent>().Subscribe(ShowText);
             aggregator.GetEvent<CommCardEvent>().Subscribe(ShowCommCard);
+            aggregator.GetEvent<ActionEvent>().Subscribe(ShowRaise);
 
             Players.Add(new DummyPlayer() { Name = "PlayerA" });
             Players.Add(new SmartPlayer() { Name = "PlayerB" });
-            Players.Add(new PokerPlayer(aggregator) { Name = "PlayerC" });
+            poker = new PokerPlayer(aggregator) { Name = "PlayerC" };
+            Players.Add(poker);
             Players.Add(new DummyPlayer() { Name = "PlayerD" });
             Players.Add(new SmartPlayer() { Name = "PlayerE" });
             Players.Add(new DummyPlayer() { Name = "PlayerF" });
@@ -45,6 +50,8 @@ namespace TexasHoldem.WPF
             });
             
         }
+
+       
 
         private string str6;
         public string Str6
@@ -58,6 +65,48 @@ namespace TexasHoldem.WPF
         {
             get { return commCards; }
             set { commCards = value; RaisePropertyChanged(); }
+        }
+
+        private string strMainPot;
+        public string StrMainPot
+        {
+            get { return strMainPot; }
+            set { strMainPot = value; RaisePropertyChanged(); }
+        }
+
+        private string strSidePot;
+        public string StrSidePot
+        {
+            get { return strSidePot; }
+            set { strSidePot = value; RaisePropertyChanged(); }
+        }
+
+        private string raiseChipCount;
+        public string RaiseChipCount
+        {
+            get { return raiseChipCount; }
+            set { raiseChipCount = value; RaisePropertyChanged(); }
+        }
+
+        private string raiseChipHint;
+        public string RaiseChipHint
+        {
+            get { return raiseChipHint; }
+            set { raiseChipHint = value; RaisePropertyChanged(); }
+        }
+
+        private bool isRaiseCommit;
+        public bool IsRaiseCommit
+        {
+            get { return isRaiseCommit; }
+            set { isRaiseCommit = value; RaisePropertyChanged(); }
+        }
+
+        private Visibility isRaiseCommitVisibility = Visibility.Hidden;
+        public Visibility IsRaiseCommitVisibility
+        {
+            get { return isRaiseCommitVisibility; }
+            set { isRaiseCommitVisibility = value; RaisePropertyChanged(); }
         }
 
         #region player hand card
@@ -245,12 +294,16 @@ namespace TexasHoldem.WPF
 
             for (int i = 0; i < Players.Count; i++)
             {
-                //list.Add(new PokerUiDecorator(Players[i]));
                 list.Add(new PokerUiDecorator(aggregator, Players[i]));
             }
 
             return new TexasHoldemGame(list);
             
+        }
+
+        private void ShowRaise(ActionEventPara para)
+        {
+            RaiseChipHint = para.RaiseMoneyHint;
         }
 
         private void ShowCard(Card card)
@@ -343,6 +396,14 @@ namespace TexasHoldem.WPF
             {
                 if (para != null)
                 {
+                    if(para.CurrentControl== CurrentControl.MainCommPot)
+                    {
+                        StrMainPot = para.message;
+                    }
+                    else if(para.CurrentControl == CurrentControl.SideCommPot)
+                    {
+                        StrSidePot = para.message;
+                    }
                     switch (para.playerName)
                     {
                         case "PlayerA":
@@ -442,5 +503,54 @@ namespace TexasHoldem.WPF
                 default: return Suit.Hearts;
             }
         }
+
+        #region
+        public ICommand CheckOrCallCommand
+        {
+            get => new DelegateCommand(() =>
+            {
+                //ActionEventPara para = new 
+                //aggregator.GetEvent<ActionEvent>().Publish();
+                poker.EnumAction = EnumAction.CheckOrCall;
+            });
+        }
+
+        public ICommand RaiseCommand
+        {
+            get => new DelegateCommand(() =>
+            {
+                if(!IsRaiseCommit)
+                {
+                    IsRaiseCommit = true;
+                    poker.EnumAction = EnumAction.Raise;
+                    poker.isRaise = false;
+                    IsRaiseCommitVisibility = Visibility.Visible;
+                }
+                else
+                {
+                    poker.isRaise = true;
+                    poker.CurrentRoundMoney = int.Parse(RaiseChipCount);
+                    poker.EnumAction = EnumAction.Raise;
+                    IsRaiseCommitVisibility = Visibility.Hidden;
+                }
+            });
+        }
+
+        public ICommand FoldCommand
+        {
+            get => new DelegateCommand(() =>
+            {
+                poker.EnumAction = EnumAction.Fold;
+            });
+        }
+
+        public ICommand AllInCommand
+        {
+            get => new DelegateCommand(() =>
+            {
+                poker.EnumAction = EnumAction.Allin;
+            });
+        }
+        #endregion
     }
 }

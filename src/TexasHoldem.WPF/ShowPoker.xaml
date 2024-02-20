@@ -9,6 +9,14 @@
     Width="800"
     Height="800"
     mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Comic Sans MS" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="White" />
+        </Style>
+    </Window.Resources>
     <Grid>
         <!--<TextBox x:Name="txtCommPot" Text="{Binding Str6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
         <Grid.RowDefinitions>
@@ -18,9 +26,9 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <TextBlock Text="MainPot:" />
-            <TextBox Name="txtMainPot" />
+            <TextBlock Name="txtMainPot" Text="{Binding StrMainPot}" />
             <TextBlock Text="SidePot:" />
-            <TextBox Name="txtSidePot" />
+            <TextBlock Name="txtSidePot" Text="{Binding StrSidePot}" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" HorizontalAlignment="Center">
@@ -174,9 +182,6 @@
                     <TextBlock Text="{Binding PlayerFAction}" />
                 </StackPanel>
             </Grid>
-
-
-
         </StackPanel>
 
         <StackPanel
@@ -186,18 +191,31 @@
             <Button
                 Name="btnCheckOrCall"
                 Margin="20,0,0,0"
+                Command="{Binding CheckOrCallCommand}"
                 Content="CheckOrCall" />
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding RaiseChipHint}" Visibility="{Binding IsRaiseCommitVisibility}" />
+                <TextBox
+                    Foreground="White" Width="100"
+                    Background="DarkBlue"
+                    Text="{Binding RaiseChipCount}"
+                    Visibility="{Binding IsRaiseCommitVisibility}" />
+            </StackPanel>
+
             <Button
                 Name="btnRaise"
                 Margin="20,0,0,0"
+                Command="{Binding RaiseCommand}"
                 Content="Raise" />
             <Button
                 Name="btnFold"
                 Margin="20,0,0,0"
+                Command="{Binding FoldCommand}"
                 Content="Fold" />
             <Button
                 Name="btnAllIn"
                 Margin="20,0,0,0"
+                Command="{Binding AllInCommand}"
                 Content="AllIn" />
         </StackPanel>
 
