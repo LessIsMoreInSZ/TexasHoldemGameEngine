@@ -8,13 +8,18 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using TexasHoldem.Logic.Players;
 using TexasHoldem.UI.Console;
+using TexasHoldem.WPF.Events;
 
 namespace TexasHoldem.WPF
 {
     public class PokerPlayer : BasePlayer
     {
+        
         private readonly int row;
         private readonly IEventAggregator _aggregator;
+        public bool isRaise { get; set; }
+        public EnumAction EnumAction { get; set; }
+        public int CurrentRoundMoney { get; set; }
 
         public PokerPlayer(IEventAggregator aggregator, int buyIn = -1)
         {
@@ -42,33 +47,34 @@ namespace TexasHoldem.WPF
                 //this.DrawPlayerOptions(context.MoneyToCall);
             }
 
-            //while (true)
-            //{
-                Thread.Sleep(1000);
-                //var key = Console.ReadKey(true);
-                ConsoleKeyInfo key = new ConsoleKeyInfo();
+            while (true)
+            {
                 PlayerAction action = null;
-                switch (key.Key)
+                switch (EnumAction)
                 {
-                    case ConsoleKey.C:
+                    case EnumAction.CheckOrCall:
                         action = PlayerAction.CheckOrCall();
                         break;
-                    case ConsoleKey.R:
+                    case EnumAction.Raise:
                         if (!context.CanRaise)
                         {
-                            //continue;
+                            continue;
                         }
 
-                        action = PlayerAction.Raise(
-                            this.RaiseAmount(context.MoneyLeft, context.MinRaise, context.MoneyToCall, context.MyMoneyInTheRound));
+                        int result = this.RaiseAmount(context.MoneyLeft, context.MinRaise, context.MoneyToCall, context.MyMoneyInTheRound);
+                        if(result != 0)
+                        {
+                            action = PlayerAction.Raise(result);
+                        }
+                        
                         break;
-                    case ConsoleKey.F:
+                    case EnumAction.Fold:
                         action = PlayerAction.Fold();
                         break;
-                    case ConsoleKey.A:
+                    case EnumAction.Allin:
                         if (!context.CanRaise)
                         {
-                            //continue;
+                            continue;
                         }
 
                         action = context.MoneyLeft > 0
@@ -77,16 +83,17 @@ namespace TexasHoldem.WPF
                         break;
                 }
 
-            if (action != null)
-            {
-                return action;
+                if (action != null)
+                {
+                    EnumAction = EnumAction.None;
+                    return action;
+                }
             }
-            else { return PlayerAction.CheckOrCall(); }
-        //}
-    }
+        }
 
         private int RaiseAmount(int moneyLeft, int minRaise, int moneyToCall, int myMoneyInTheRound)
         {
+            int result = 0;
             var wholeMinRaise = minRaise + myMoneyInTheRound + moneyToCall;
             if (wholeMinRaise >= moneyLeft + myMoneyInTheRound)
             {
@@ -95,6 +102,7 @@ namespace TexasHoldem.WPF
             }
 
             var perfix = $"Raise amount [{wholeMinRaise}-{moneyLeft + myMoneyInTheRound}]:";
+            _aggregator.GetEvent<ActionEvent>().Publish(new ActionEventPara { RaiseMoneyHint = perfix });
 
             //do
             //{
@@ -121,24 +129,30 @@ namespace TexasHoldem.WPF
             //}
             //while (true);
 
-            var text = ConsoleHelper.UserInput(this.row + 2, perfix.Length + 3);
-            int result;
 
-            if (int.TryParse(text, out result))
+            //var text = ConsoleHelper.UserInput(this.row + 2, perfix.Length + 3);
+            
+            if(isRaise)
             {
-                if (result < wholeMinRaise)
+                var text = CurrentRoundMoney.ToString();
+                if (int.TryParse(text, out result))
                 {
-                    return minRaise;
-                }
-                else if (result >= moneyLeft + myMoneyInTheRound)
-                {
-                    // Raise All-in
-                    return moneyLeft - moneyToCall;
-                }
+                    if (result < wholeMinRaise)
+                    {
+                        return minRaise;
+                    }
+                    else if (result >= moneyLeft + myMoneyInTheRound)
+                    {
+                        // Raise All-in
+                        return moneyLeft - moneyToCall;
+                    }
 
-                return result - (myMoneyInTheRound + moneyToCall);
+                    return result - (myMoneyInTheRound + moneyToCall);
+                }
+                isRaise = false;
             }
             return result;
+
         }
 
         private void DrawPlayerOptions(int moneyToCall)

@@ -182,9 +182,6 @@
                     <TextBlock Text="{Binding PlayerFAction}" />
                 </StackPanel>
             </Grid>
-
-
-
         </StackPanel>
 
         <StackPanel
@@ -194,18 +191,31 @@
             <Button
                 Name="btnCheckOrCall"
                 Margin="20,0,0,0"
+                Command="{Binding CheckOrCallCommand}"
                 Content="CheckOrCall" />
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding RaiseChipHint}" Visibility="{Binding IsRaiseCommitVisibility}" />
+                <TextBox
+                    Foreground="White" Width="100"
+                    Background="DarkBlue"
+                    Text="{Binding RaiseChipCount}"
+                    Visibility="{Binding IsRaiseCommitVisibility}" />
+            </StackPanel>
+
             <Button
                 Name="btnRaise"
                 Margin="20,0,0,0"
+                Command="{Binding RaiseCommand}"
                 Content="Raise" />
             <Button
                 Name="btnFold"
                 Margin="20,0,0,0"
+                Command="{Binding FoldCommand}"
                 Content="Fold" />
             <Button
                 Name="btnAllIn"
                 Margin="20,0,0,0"
+                Command="{Binding AllInCommand}"
                 Content="AllIn" />
         </StackPanel>
 
