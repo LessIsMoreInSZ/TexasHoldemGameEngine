@@ -25,19 +25,20 @@ namespace TexasHoldem.WPF
     /// </summary>
     public partial class App : PrismApplication
     {
-        public static int PlayerNumer = 0;
+        public static int PlayerNumer = 6;
         public static Player Player;
         protected override Window CreateShell()
         {
-            return Container.Resolve<ShowPoker>();
-            //return Container.Resolve<ShellWindow>();
+            //return Container.Resolve<ShowPoker>();
+            return Container.Resolve<ShellWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IMetroDialogService,MetroDialogService>();
+            containerRegistry.RegisterSingleton<IMetroDialogService, MetroDialogService>();
             containerRegistry.RegisterForNavigation<ShellWindow, ShellWindowViewModel>();
             containerRegistry.RegisterForNavigation<IndexView, IndexViewModel>(PageKeys.Index);
+            containerRegistry.RegisterForNavigation<GameView, GameViewModel>(PageKeys.Game);
             containerRegistry.RegisterForNavigation<ShowPoker, ShowPokerVM>();
         }
     }
