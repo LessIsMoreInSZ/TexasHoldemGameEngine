@@ -12,6 +12,7 @@ using static TexasHoldem.WPF.TestPoker;
 using TexasHoldem.Logic.Players;
 using TexasHoldem.Logic.GameMechanics;
 using TexasHoldem.WPF.Events;
+using TexasHoldem.WPF.Controls;
 
 namespace TexasHoldem.WPF
 {

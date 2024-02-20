@@ -27,8 +27,8 @@ namespace TexasHoldem.WPF
         public static Player Player;
         protected override Window CreateShell()
         {
-            //return Container.Resolve<ShowPoker>();
-            return Container.Resolve<ShellWindow>();
+            return Container.Resolve<ShowPoker>();
+            //return Container.Resolve<ShellWindow>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

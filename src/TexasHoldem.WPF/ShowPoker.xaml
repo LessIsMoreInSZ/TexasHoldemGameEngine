@@ -43,9 +43,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerACurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerAStatus}" />
-                    <TextBlock  Text="{Binding PlayerAAction}" />
+                    <TextBlock Text="{Binding PlayerACurrentPot}" />
+                    <TextBlock Text="{Binding PlayerAStatus}" />
+                    <TextBlock Text="{Binding PlayerAAction}" />
                 </StackPanel>
             </Grid>
 
@@ -67,9 +67,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerBCurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerBStatus}" />
-                    <TextBlock  Text="{Binding PlayerBAction}" />
+                    <TextBlock Text="{Binding PlayerBCurrentPot}" />
+                    <TextBlock Text="{Binding PlayerBStatus}" />
+                    <TextBlock Text="{Binding PlayerBAction}" />
                 </StackPanel>
             </Grid>
 
@@ -91,9 +91,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerCCurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerCStatus}" />
-                    <TextBlock  Text="{Binding PlayerCAction}" />
+                    <TextBlock Text="{Binding PlayerCCurrentPot}" />
+                    <TextBlock Text="{Binding PlayerCStatus}" />
+                    <TextBlock Text="{Binding PlayerCAction}" />
                 </StackPanel>
             </Grid>
 
@@ -115,9 +115,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerDCurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerDStatus}" />
-                    <TextBlock  Text="{Binding PlayerDAction}" />
+                    <TextBlock Text="{Binding PlayerDCurrentPot}" />
+                    <TextBlock Text="{Binding PlayerDStatus}" />
+                    <TextBlock Text="{Binding PlayerDAction}" />
                 </StackPanel>
             </Grid>
 
@@ -139,9 +139,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerECurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerEStatus}" />
-                    <TextBlock  Text="{Binding PlayerEAction}" />
+                    <TextBlock Text="{Binding PlayerECurrentPot}" />
+                    <TextBlock Text="{Binding PlayerEStatus}" />
+                    <TextBlock Text="{Binding PlayerEAction}" />
                 </StackPanel>
             </Grid>
 
@@ -163,9 +163,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerFCurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerFStatus}" />
-                    <TextBlock  Text="{Binding PlayerFAction}" />
+                    <TextBlock Text="{Binding PlayerFCurrentPot}" />
+                    <TextBlock Text="{Binding PlayerFStatus}" />
+                    <TextBlock Text="{Binding PlayerFAction}" />
                 </StackPanel>
             </Grid>
 
