@@ -41,8 +41,8 @@ namespace TexasHoldem.WPF
                 //this.DrawPlayerOptions(context.MoneyToCall);
             }
 
-            //while (true)
-            //{
+            while (true)
+            {
                 //var key = Console.ReadKey(true);
                 ConsoleKeyInfo key = new ConsoleKeyInfo();
                 PlayerAction action = null;
@@ -79,13 +79,13 @@ namespace TexasHoldem.WPF
             {
                 return action;
             }
-            else
-            {
-                return PlayerAction.CheckOrCall();
-            }
-
+            //else
+            //{
+            //    return PlayerAction.CheckOrCall();
             //}
+
         }
+    }
 
         private int RaiseAmount(int moneyLeft, int minRaise, int moneyToCall, int myMoneyInTheRound)
         {
