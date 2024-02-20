@@ -10,7 +10,7 @@
     Height="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBox x:Name="txtCommPot" Text="{Binding Str6}" />
+        <TextBox x:Name="txtCommPot" Text="{Binding Str6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <StackPanel Width="400">
             <!--  公共牌  -->
             <ListBox
@@ -18,7 +18,7 @@
                 Grid.Column="0"
                 Width="400"
                 Height="100"
-                ItemsSource="{Binding CommCards}">
+                ItemsSource="{Binding CommCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
@@ -35,7 +35,7 @@
                     Grid.Column="0"
                     Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerA}">
+                    ItemsSource="{Binding ListPlayerA, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
@@ -43,9 +43,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerACurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerAStatus}" />
-                    <TextBlock  Text="{Binding PlayerAAction}" />
+                    <TextBlock Text="{Binding PlayerACurrentPot}" />
+                    <TextBlock Text="{Binding PlayerAStatus}" />
+                    <TextBlock Text="{Binding PlayerAAction}" />
                 </StackPanel>
             </Grid>
 
@@ -59,7 +59,7 @@
                     Grid.Column="0"
                     Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerB}">
+                    ItemsSource="{Binding ListPlayerB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
@@ -67,9 +67,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerBCurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerBStatus}" />
-                    <TextBlock  Text="{Binding PlayerBAction}" />
+                    <TextBlock Text="{Binding PlayerBCurrentPot}" />
+                    <TextBlock Text="{Binding PlayerBStatus}" />
+                    <TextBlock Text="{Binding PlayerBAction}" />
                 </StackPanel>
             </Grid>
 
@@ -83,7 +83,7 @@
                     Grid.Column="0"
                     Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerC}">
+                    ItemsSource="{Binding ListPlayerC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
@@ -91,9 +91,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerCCurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerCStatus}" />
-                    <TextBlock  Text="{Binding PlayerCAction}" />
+                    <TextBlock Text="{Binding PlayerCCurrentPot}" />
+                    <TextBlock Text="{Binding PlayerCStatus}" />
+                    <TextBlock Text="{Binding PlayerCAction}" />
                 </StackPanel>
             </Grid>
 
@@ -107,7 +107,7 @@
                     Grid.Column="0"
                     Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerD}">
+                    ItemsSource="{Binding ListPlayerD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
@@ -115,9 +115,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerDCurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerDStatus}" />
-                    <TextBlock  Text="{Binding PlayerDAction}" />
+                    <TextBlock Text="{Binding PlayerDCurrentPot}" />
+                    <TextBlock Text="{Binding PlayerDStatus}" />
+                    <TextBlock Text="{Binding PlayerDAction}" />
                 </StackPanel>
             </Grid>
 
@@ -131,7 +131,7 @@
                     Grid.Column="0"
                     Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerE}">
+                    ItemsSource="{Binding ListPlayerE, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
@@ -139,9 +139,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerECurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerEStatus}" />
-                    <TextBlock  Text="{Binding PlayerEAction}" />
+                    <TextBlock Text="{Binding PlayerECurrentPot}" />
+                    <TextBlock Text="{Binding PlayerEStatus}" />
+                    <TextBlock Text="{Binding PlayerEAction}" />
                 </StackPanel>
             </Grid>
 
@@ -155,7 +155,7 @@
                     Grid.Column="0"
                     Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerF}">
+                    ItemsSource="{Binding ListPlayerF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
@@ -163,9 +163,9 @@
                     </ListBox.ItemsPanel>
                 </ListBox>
                 <StackPanel Grid.Column="1" Orientation="Vertical">
-                    <TextBlock  Text="{Binding PlayerFCurrentPot}" />
-                    <TextBlock  Text="{Binding PlayerFStatus}" />
-                    <TextBlock  Text="{Binding PlayerFAction}" />
+                    <TextBlock Text="{Binding PlayerFCurrentPot}" />
+                    <TextBlock Text="{Binding PlayerFStatus}" />
+                    <TextBlock Text="{Binding PlayerFAction}" />
                 </StackPanel>
             </Grid>
 
