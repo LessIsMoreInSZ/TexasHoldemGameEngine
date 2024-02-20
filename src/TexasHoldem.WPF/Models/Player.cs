@@ -16,5 +16,10 @@ namespace TexasHoldem.WPF.Models
         [ObservableProperty]
         [NotifyPropertyChangedRecipients]
         string avatar;
+
+        [ObservableProperty]
+        double angle;
+
+
     }
 }
