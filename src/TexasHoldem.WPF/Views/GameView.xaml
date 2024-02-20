@@ -15,7 +15,7 @@
     <UserControl.Resources>
         <cvt:OppositeNumberConverter x:Key="oppositeNumberConverter" />
     </UserControl.Resources>
-    <Grid>
+    <Grid >
         <ListBox ItemsSource="{Binding PlayerList}" Style="{StaticResource tableListBox}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -28,19 +28,23 @@
                         Name="bd"
                         Width="200"
                         Height="200"
-                      
                         RenderTransformOrigin="0.5,0.5">
                         <Border.RenderTransform>
                             <TransformGroup>
-                                <TranslateTransform Y="280" />
+                                <TranslateTransform Y="-380" />
                                 <RotateTransform Angle="{Binding Angle}" />
                             </TransformGroup>
                         </Border.RenderTransform>
-                        <Border BorderBrush="AliceBlue" BorderThickness="1" Margin="30" RenderTransformOrigin="0.5,0.5"   CornerRadius="15"> 
+                        <Border
+                            Margin="20"
+                            BorderBrush="AliceBlue"
+                            BorderThickness="1"
+                            CornerRadius="15"
+                            RenderTransformOrigin="0.5,0.5">
                             <Border.RenderTransform>
                                 <RotateTransform Angle="{Binding Angle, Converter={StaticResource oppositeNumberConverter}}" />
                             </Border.RenderTransform>
-                            <Grid >
+                            <Grid Margin="5">
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
                                     <RowDefinition Height="auto" />
@@ -48,10 +52,11 @@
                                 <Image
                                     Width="120"
                                     Height="120"
-                                    Source="{Binding Avatar}" />
+                                    Source="{Binding Avatar}"
+                                    Stretch="Fill" />
                                 <TextBlock
                                     Grid.Row="1"
-                                    Margin="5"
+                                    Margin="3" Foreground="White"
                                     Text="{Binding Name}"
                                     TextAlignment="Center" />
                             </Grid>
