@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TexasHoldem.Logic.Players;
@@ -43,6 +44,7 @@ namespace TexasHoldem.WPF
 
             //while (true)
             //{
+                Thread.Sleep(1000);
                 //var key = Console.ReadKey(true);
                 ConsoleKeyInfo key = new ConsoleKeyInfo();
                 PlayerAction action = null;
@@ -79,13 +81,9 @@ namespace TexasHoldem.WPF
             {
                 return action;
             }
-            else
-            {
-                return PlayerAction.CheckOrCall();
-            }
-
-            //}
-        }
+            else { return PlayerAction.CheckOrCall(); }
+        //}
+    }
 
         private int RaiseAmount(int moneyLeft, int minRaise, int moneyToCall, int myMoneyInTheRound)
         {

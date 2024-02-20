@@ -13,6 +13,9 @@ using TexasHoldem.Logic.Players;
 using TexasHoldem.Logic.GameMechanics;
 using TexasHoldem.WPF.Events;
 using TexasHoldem.WPF.Controls;
+using System.Windows;
+using CommunityToolkit.Mvvm.Collections;
+using System.Collections.ObjectModel;
 
 namespace TexasHoldem.WPF
 {
@@ -35,8 +38,12 @@ namespace TexasHoldem.WPF
             Players.Add(new SmartPlayer() { Name = "PlayerE" });
             Players.Add(new DummyPlayer() { Name = "PlayerF" });
 
-            var game = Game();
-            game.Start();
+            Task.Run(() =>
+            {
+                var game = Game();
+                game.Start();
+            });
+            
         }
 
         private string str6;
@@ -45,55 +52,56 @@ namespace TexasHoldem.WPF
             get { return str6; }
             set { str6 = value; RaisePropertyChanged(); }
         }
-
-        private List<CardUI> commCards = new List<CardUI>();
-        public List<CardUI> CommCards
+        
+        private ObservableCollection<CardUI> commCards = new ObservableCollection<CardUI>();
+        public ObservableCollection<CardUI> CommCards
         {
             get { return commCards; }
             set { commCards = value; RaisePropertyChanged(); }
         }
 
         #region player hand card
-        private List<CardUI> listPlayerA = new List<CardUI>();
-        public List<CardUI> ListPlayerA
+        private ObservableCollection<CardUI> listPlayerA = new ObservableCollection<CardUI>();
+        public ObservableCollection<CardUI> ListPlayerA
         {
             get { return listPlayerA; }
             set { listPlayerA = value; RaisePropertyChanged(); }
         }
 
-        private List<CardUI> listPlayerB = new List<CardUI>();
-        public List<CardUI> ListPlayerB
+        private ObservableCollection<CardUI> listPlayerB = new ObservableCollection<CardUI>();
+        public ObservableCollection<CardUI> ListPlayerB
         {
             get { return listPlayerB; }
             set { listPlayerB = value; RaisePropertyChanged(); }
         }
 
-        private List<CardUI> listPlayerC = new List<CardUI>();
-        public List<CardUI> ListPlayerC
+        private ObservableCollection<CardUI> listPlayerC = new ObservableCollection<CardUI>();
+        public ObservableCollection<CardUI> ListPlayerC
         {
             get { return listPlayerC; }
             set { listPlayerC = value; RaisePropertyChanged(); }
         }
 
-        private List<CardUI> listPlayerD = new List<CardUI>();
-        public List<CardUI> ListPlayerD
+        private ObservableCollection<CardUI> listPlayerD = new ObservableCollection<CardUI>();
+        public ObservableCollection<CardUI> ListPlayerD
         {
             get { return listPlayerD; }
             set { listPlayerD = value; RaisePropertyChanged(); }
         }
 
-        private List<CardUI> listPlayerE = new List<CardUI>();
-        public List<CardUI> ListPlayerE
+        private ObservableCollection<CardUI> listPlayerE = new ObservableCollection<CardUI>();
+        public ObservableCollection<CardUI> ListPlayerE
         {
             get { return listPlayerE; }
             set { listPlayerE = value; RaisePropertyChanged(); }
         }
 
-        private List<CardUI> listPlayerF = new List<CardUI>();
-        public List<CardUI> ListPlayerF
+        private ObservableCollection<CardUI> listPlayerF = new ObservableCollection<CardUI>();
+        public ObservableCollection<CardUI> ListPlayerF
         {
             get { return listPlayerF; }
-            set { listPlayerF = value; RaisePropertyChanged(); }
+            set { SetProperty(ref listPlayerF, value); }
+            //set { listPlayerF = value; RaisePropertyChanged(); }
         }
         #endregion
 
@@ -242,153 +250,164 @@ namespace TexasHoldem.WPF
             }
 
             return new TexasHoldemGame(list);
+            
         }
 
         private void ShowCard(Card card)
         {
-            string strSuit = string.Empty;
-            if (card.Suit == CardSuit.Club)
+            Application.Current.Dispatcher.BeginInvoke(() =>
             {
-                strSuit = "♣";
-            }
-            else if (card.Suit == CardSuit.Spade)
-            {
-                strSuit = "♠";
-            }
-            else if (card.Suit == CardSuit.Diamond)
-            {
-                strSuit = "♦";
-            }
-            else if (card.Suit == CardSuit.Heart)
-            {
-                strSuit = "♥";
-            }
+                string strSuit = string.Empty;
+                if (card.Suit == CardSuit.Club)
+                {
+                    strSuit = "♣";
+                }
+                else if (card.Suit == CardSuit.Spade)
+                {
+                    strSuit = "♠";
+                }
+                else if (card.Suit == CardSuit.Diamond)
+                {
+                    strSuit = "♦";
+                }
+                else if (card.Suit == CardSuit.Heart)
+                {
+                    strSuit = "♥";
+                }
 
 
-            if (playerCnt == 0 || playerCnt == 1)
-            {
-                //ListPlayerA.Clear();
-                ListPlayerA.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-            }
-            else if (playerCnt == 2 || playerCnt == 3)
-            {
-                //ListPlayerB.Clear();
-                ListPlayerB.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-            }
-            else if (playerCnt == 4 || playerCnt == 5)
-            {
-                //ListPlayerC.Clear();
-                ListPlayerC.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-            }
-            else if (playerCnt == 6 || playerCnt == 7)
-            {
-                //ListPlayerD.Clear();
-                ListPlayerD.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-            }
-            else if (playerCnt == 8 || playerCnt == 9)
-            {
-                //ListPlayerE.Clear();
-                ListPlayerE.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-            }
-            else if (playerCnt == 10 || playerCnt == 11)
-            {
-                //ListPlayerF.Clear();
-                ListPlayerF.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-            }
-            str6 += strSuit + card.Type.ToString() + "\r\n";
-            playerCnt++;
-            if (playerCnt % 2 == 0)
-                str6 += "---\r\n";
+                if (playerCnt == 0 || playerCnt == 1)
+                {
+                    //ListPlayerA.Clear();
+                    ListPlayerA.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
+                }
+                else if (playerCnt == 2 || playerCnt == 3)
+                {
+                    //ListPlayerB.Clear();
+                    ListPlayerB.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
+                }
+                else if (playerCnt == 4 || playerCnt == 5)
+                {
+                    //ListPlayerC.Clear();
+                    ListPlayerC.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
+                }
+                else if (playerCnt == 6 || playerCnt == 7)
+                {
+                    //ListPlayerD.Clear();
+                    ListPlayerD.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
+                }
+                else if (playerCnt == 8 || playerCnt == 9)
+                {
+                    //ListPlayerE.Clear();
+                    ListPlayerE.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
+                }
+                else if (playerCnt == 10 || playerCnt == 11)
+                {
+                    //ListPlayerF.Clear();
+                    ListPlayerF.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
+                }
+                str6 += strSuit + card.Type.ToString() + "\r\n";
+                playerCnt++;
+                if (playerCnt % 2 == 0)
+                    str6 += "---\r\n";
 
-            if (playerCnt == 12)
-            {
-                playerCnt = 0;
-            }
+                if (playerCnt == 12)
+                {
+                    playerCnt = 0;
+                }
 
+            });
+            
 
         }
 
         private void ShowCommCard(IReadOnlyCollection<Card> cards)
         {
-            CommCards.Clear();
-            foreach (var card in cards)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                CardUI cardUI = new CardUI();
-                cardUI.Suit = EnumChangeCardSuit(card.Suit);
-                cardUI.Value = EnumChangeCardType(card.Type);
-                cardUI.IsShown = true;
-                CommCards.Add(cardUI);
-            }
+                CommCards.Clear();
+                foreach (var card in cards)
+                {
+                    CardUI cardUI = new CardUI();
+                    cardUI.Suit = EnumChangeCardSuit(card.Suit);
+                    cardUI.Value = EnumChangeCardType(card.Type);
+                    cardUI.IsShown = true;
+                    CommCards.Add(cardUI);
+                }
+            });
         }
 
         private void ShowText(TextChangeEventPara para)
         {
-            if (para != null)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                switch (para.playerName)
+                if (para != null)
                 {
-                    case "PlayerA":
-                        {
-                            if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerACurrentPot = para.message;
-                            else if (para.CurrentControl == CurrentControl.Status)
-                                PlayerAStatus = para.message;
-                            else if (para.CurrentControl == CurrentControl.Action)
-                                PlayerAAction = para.message;
+                    switch (para.playerName)
+                    {
+                        case "PlayerA":
+                            {
+                                if (para.CurrentControl == CurrentControl.CurrentPot)
+                                    PlayerACurrentPot = para.message;
+                                else if (para.CurrentControl == CurrentControl.Status)
+                                    PlayerAStatus = para.message;
+                                else if (para.CurrentControl == CurrentControl.Action)
+                                    PlayerAAction = para.message;
                                 break;
-                        }
-                    case "PlayerB":
-                        {
-                            if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerBCurrentPot = para.message;
-                            else if (para.CurrentControl == CurrentControl.Status)
-                                PlayerBStatus = para.message;
-                            else if (para.CurrentControl == CurrentControl.Action)
-                                PlayerBAction = para.message;
-                            break;
-                        }
-                    case "PlayerC":
-                        {
-                            if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerCCurrentPot = para.message;
-                            else if (para.CurrentControl == CurrentControl.Status)
-                                PlayerCStatus = para.message;
-                            else if (para.CurrentControl == CurrentControl.Action)
-                                PlayerCAction = para.message;
-                            break;
-                        }
-                    case "PlayerD":
-                        {
-                            if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerDCurrentPot = para.message;
-                            else if (para.CurrentControl == CurrentControl.Status)
-                                PlayerDStatus = para.message;
-                            else if (para.CurrentControl == CurrentControl.Action)
-                                PlayerDAction = para.message;
-                            break;
-                        }
-                    case "PlayerE":
-                        {
-                            if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerECurrentPot = para.message;
-                            else if (para.CurrentControl == CurrentControl.Status)
-                                PlayerAStatus = para.message;
-                            else if (para.CurrentControl == CurrentControl.Action)
-                                PlayerAAction = para.message;
-                            break;
-                        }
-                    case "PlayerF":
-                        {
-                            if (para.CurrentControl == CurrentControl.CurrentPot)
-                                PlayerFCurrentPot = para.message;
-                            else if (para.CurrentControl == CurrentControl.Status)
-                                PlayerFStatus = para.message;
-                            else if (para.CurrentControl == CurrentControl.Action)
-                                PlayerFAction = para.message;
-                            break;
-                        }
+                            }
+                        case "PlayerB":
+                            {
+                                if (para.CurrentControl == CurrentControl.CurrentPot)
+                                    PlayerBCurrentPot = para.message;
+                                else if (para.CurrentControl == CurrentControl.Status)
+                                    PlayerBStatus = para.message;
+                                else if (para.CurrentControl == CurrentControl.Action)
+                                    PlayerBAction = para.message;
+                                break;
+                            }
+                        case "PlayerC":
+                            {
+                                if (para.CurrentControl == CurrentControl.CurrentPot)
+                                    PlayerCCurrentPot = para.message;
+                                else if (para.CurrentControl == CurrentControl.Status)
+                                    PlayerCStatus = para.message;
+                                else if (para.CurrentControl == CurrentControl.Action)
+                                    PlayerCAction = para.message;
+                                break;
+                            }
+                        case "PlayerD":
+                            {
+                                if (para.CurrentControl == CurrentControl.CurrentPot)
+                                    PlayerDCurrentPot = para.message;
+                                else if (para.CurrentControl == CurrentControl.Status)
+                                    PlayerDStatus = para.message;
+                                else if (para.CurrentControl == CurrentControl.Action)
+                                    PlayerDAction = para.message;
+                                break;
+                            }
+                        case "PlayerE":
+                            {
+                                if (para.CurrentControl == CurrentControl.CurrentPot)
+                                    PlayerECurrentPot = para.message;
+                                else if (para.CurrentControl == CurrentControl.Status)
+                                    PlayerEStatus = para.message;
+                                else if (para.CurrentControl == CurrentControl.Action)
+                                    PlayerEAction = para.message;
+                                break;
+                            }
+                        case "PlayerF":
+                            {
+                                if (para.CurrentControl == CurrentControl.CurrentPot)
+                                    PlayerFCurrentPot = para.message;
+                                else if (para.CurrentControl == CurrentControl.Status)
+                                    PlayerFStatus = para.message;
+                                else if (para.CurrentControl == CurrentControl.Action)
+                                    PlayerFAction = para.message;
+                                break;
+                            }
+                    }
                 }
-            }
+            });
         }
 
         private Value EnumChangeCardType(CardType value)

@@ -10,15 +10,27 @@
     Height="800"
     mc:Ignorable="d">
     <Grid>
-        <TextBox x:Name="txtCommPot" Text="{Binding Str6}" />
-        <StackPanel Width="400">
+        <!--<TextBox x:Name="txtCommPot" Text="{Binding Str6, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Text="MainPot:" />
+            <TextBox Name="txtMainPot" />
+            <TextBlock Text="SidePot:" />
+            <TextBox Name="txtSidePot" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center">
             <!--  公共牌  -->
             <ListBox
                 x:Name="CommCards"
                 Grid.Column="0"
                 Width="400"
                 Height="100"
-                ItemsSource="{Binding CommCards}">
+                ItemsSource="{Binding CommCards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
@@ -27,18 +39,17 @@
             </ListBox>
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <ListBox
-                    x:Name="playerA"
+                    x:Name="PlayerA"
                     Grid.Column="0"
-                    Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerA}">
+                    ItemsSource="{Binding ListPlayerA, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
@@ -51,18 +62,17 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <ListBox
                     x:Name="PlayerB"
                     Grid.Column="0"
-                    Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerB}">
+                    ItemsSource="{Binding ListPlayerB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
@@ -75,18 +85,17 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <ListBox
                     x:Name="PlayerC"
                     Grid.Column="0"
-                    Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerC}">
+                    ItemsSource="{Binding ListPlayerC, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
@@ -99,18 +108,17 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <ListBox
                     x:Name="PlayerD"
                     Grid.Column="0"
-                    Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerD}">
+                    ItemsSource="{Binding ListPlayerD, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
@@ -123,18 +131,17 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <ListBox
                     x:Name="PlayerE"
                     Grid.Column="0"
-                    Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerE}">
+                    ItemsSource="{Binding ListPlayerE, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
@@ -147,18 +154,17 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="4*" />
                 </Grid.ColumnDefinitions>
                 <ListBox
                     x:Name="PlayerF"
                     Grid.Column="0"
-                    Width="250"
                     Height="100"
-                    ItemsSource="{Binding ListPlayerF}">
+                    ItemsSource="{Binding ListPlayerF, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" />
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
                 </ListBox>
@@ -171,6 +177,28 @@
 
 
 
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="2"
+            Height="50"
+            Orientation="Horizontal">
+            <Button
+                Name="btnCheckOrCall"
+                Margin="20,0,0,0"
+                Content="CheckOrCall" />
+            <Button
+                Name="btnRaise"
+                Margin="20,0,0,0"
+                Content="Raise" />
+            <Button
+                Name="btnFold"
+                Margin="20,0,0,0"
+                Content="Fold" />
+            <Button
+                Name="btnAllIn"
+                Margin="20,0,0,0"
+                Content="AllIn" />
         </StackPanel>
 
     </Grid>
