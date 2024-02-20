@@ -70,8 +70,6 @@ namespace TexasHoldem.WPF
                 context.CurrentSidePots.Select(s => s.AmountOfMoney));
 
             ChangeText(this.Player.Name, CurrentControl.Status, context.RoundType+"");
-            ////ConsoleHelper.WriteOnConsole(this.row + 1, this.width - 11, context.RoundType + "   ");
-            ////ConsoleHelper.WriteOnConsole(this.row + 3, 2, new string(' ', this.width - 3));
             base.StartRound(context);
         }
 
@@ -83,8 +81,9 @@ namespace TexasHoldem.WPF
 
             //ConsoleHelper.WriteOnConsole(this.row + 2, 2, new string(' ', this.width - 3));
             //ConsoleHelper.WriteOnConsole(this.row + 3, 2, "Last action: " + action.Type + "(" + action.Money + ")");
-
+            ChangeText(this.Player.Name, CurrentControl.Action, "Last action: " + action.Type + "(" + action.Money + ")");
             var moneyAfterAction = context.CurrentStackSize;
+            ChangeText(this.Player.Name, CurrentControl.CurrentPot, moneyAfterAction.ToString());
 
             //ConsoleHelper.WriteOnConsole(this.row + 1, 2, moneyAfterAction + "   ");
 
@@ -97,6 +96,8 @@ namespace TexasHoldem.WPF
                 context.CurrentPot,
                 context.MainPot.AmountOfMoney,
                 context.SidePots.Select(s => s.AmountOfMoney));
+
+            ChangeText(this.Player.Name, CurrentControl.CurrentPot, context.MoneyLeft.ToString());
 
             //ConsoleHelper.WriteOnConsole(this.row + 1, 2, context.MoneyLeft + "   ");
 
@@ -119,6 +120,8 @@ namespace TexasHoldem.WPF
             {
                 lastAction += $"({action.Money + context.MyMoneyInTheRound + context.MoneyToCall})";
             }
+
+            ChangeText(this.Player.Name, CurrentControl.Action, "Last action: " + lastAction);
 
             //ConsoleHelper.WriteOnConsole(this.row + 3, 2, new string(' ', this.width - 3));
             //ConsoleHelper.WriteOnConsole(this.row + 3, 2, "Last action: " + lastAction);
@@ -152,16 +155,20 @@ namespace TexasHoldem.WPF
             aggregator.GetEvent<CommCardEvent>().Publish(CommunityCards);
 
             var potAsString = "Pot: " + pot;
+            ChangeText(this.Player.Name, CurrentControl.CommPot, "Pot: " + pot);
+
             //ConsoleHelper.WriteOnConsole(this.commonRow, this.width - potAsString.Length - 2, potAsString);
 
             if (sidePots.Count() == 0)
             {
                 // Clear the side pots
+                ChangeText(this.Player.Name, CurrentControl.SideCommPot, "Pot: " + 0);
                 //ConsoleHelper.WriteOnConsole(this.commonRow + 1, 0, new string(' ', this.width - 1));
             }
             else
             {
                 var mainPotAsString = "Main Pot: " + mainPot;
+                ChangeText(this.Player.Name, CurrentControl.MainCommPot,mainPotAsString);
                 //ConsoleHelper.WriteOnConsole(this.commonRow, 2, mainPotAsString);
 
                 var sidePotsAsString = "Side Pots: ";

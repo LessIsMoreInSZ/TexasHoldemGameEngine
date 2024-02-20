@@ -22,10 +22,14 @@ namespace TexasHoldem.WPF.Events
         public CurrentControl CurrentControl;
 
         public string message;
+
     }
 
     public enum CurrentControl
     {
+        CommPot,
+        MainCommPot,
+        SideCommPot,
         CurrentPot,
         Status,
         Action
