@@ -60,6 +60,20 @@ namespace TexasHoldem.WPF
             set { commCards = value; RaisePropertyChanged(); }
         }
 
+        private string strMainPot;
+        public string StrMainPot
+        {
+            get { return strMainPot; }
+            set { strMainPot = value; RaisePropertyChanged(); }
+        }
+
+        private string strSidePot;
+        public string StrSidePot
+        {
+            get { return strSidePot; }
+            set { strSidePot = value; RaisePropertyChanged(); }
+        }
+
         #region player hand card
         private ObservableCollection<CardUI> listPlayerA = new ObservableCollection<CardUI>();
         public ObservableCollection<CardUI> ListPlayerA
@@ -343,6 +357,14 @@ namespace TexasHoldem.WPF
             {
                 if (para != null)
                 {
+                    if(para.CurrentControl== CurrentControl.MainCommPot)
+                    {
+                        StrMainPot = para.message;
+                    }
+                    else if(para.CurrentControl == CurrentControl.SideCommPot)
+                    {
+                        StrSidePot = para.message;
+                    }
                     switch (para.playerName)
                     {
                         case "PlayerA":
