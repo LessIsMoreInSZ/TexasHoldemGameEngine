@@ -2,6 +2,7 @@
     x:Class="TexasHoldem.WPF.Views.GameView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="clr-namespace:TexasHoldem.WPF.Behaviors"
     xmlns:const="clr-namespace:TexasHoldem.WPF.Constants"
     xmlns:cvt="clr-namespace:TexasHoldem.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,8 +13,8 @@
     xmlns:vm="clr-namespace:TexasHoldem.WPF.ViewModels"
     d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True,
                                      Type=vm:GameViewModel}"
-    d:DesignHeight="900"
-    d:DesignWidth="1600"
+    d:DesignHeight="1080"
+    d:DesignWidth="1920"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -27,6 +28,8 @@
                 Command="{Binding DealCommand}"
                 Content="Start" />
         </StackPanel>
+        <Viewbox Stretch="Uniform" Height="800" Width="800">
+        <Grid>
         <ListBox ItemsSource="{Binding PlayerList}" Style="{StaticResource tableListBox}">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -81,7 +84,10 @@
             x:Name="ic"
             Width="500"
             Height="500"
-            ItemsSource="{Binding Deck}">
+            ItemsSource="{Binding Deck}" RenderTransformOrigin="0.5,0.5">
+            <!--<ItemsControl.RenderTransform>
+                <TranslateTransform X="-106" />
+            </ItemsControl.RenderTransform>-->
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="Loaded">
                     <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=ic}" />
@@ -95,12 +101,15 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate DataType="model:Deck">
                     <Border
-                        Name="bd"
                         Width="60"
                         Height="80"
                         BorderBrush="Black"
                         BorderThickness="1"
-                        IsEnabled="{Binding IsDealed}">
+                        IsEnabled="{Binding IsDealed}"
+                        RenderTransformOrigin="0.5,0.5">
+                        <i:Interaction.Behaviors>
+                            <b:DeckDealBehavior />
+                        </i:Interaction.Behaviors>
                         <Border.RenderTransform>
                             <TranslateTransform x:Name="trans" X="{Binding Offset}" />
                         </Border.RenderTransform>
@@ -128,6 +137,8 @@
                     </DataTemplate.Triggers>-->
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ItemsControl>
+            </Grid>
+        </Viewbox>
     </Grid>
 </UserControl>

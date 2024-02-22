@@ -9,7 +9,7 @@ namespace TexasHoldem.WPF.Constants
 {
     public class PlayerListConstants
     {
-        public const double Diameter = 300;
+        public const double Diameter = 360;
 
     }
 }

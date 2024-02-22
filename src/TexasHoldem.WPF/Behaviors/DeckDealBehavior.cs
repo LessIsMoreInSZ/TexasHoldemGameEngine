@@ -4,20 +4,68 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using TexasHoldem.WPF.Constants;
 
 namespace TexasHoldem.WPF.Behaviors
 {
-    public class DeckDealBehavior:Behavior<ItemsControl>
+    public class DeckDealBehavior:Behavior<Border>
     {
-        //不知道用什么事件 先放着不管
+        static List<Point> points = new();
+        private static int turn;
+
+        public static int Turn
+        {
+            get { return turn; }
+            set { turn= value>App.PlayerNumber-1?0: value;  }
+        }
+        private static bool isSecond;
+
+        public static bool IsSecond
+        {
+            get { return isSecond; }
+            set { isSecond = value; }
+        }
+
+        static double offset=10;
+
         protected override void OnDetaching()
         {
             base.OnDetaching();
+            AssociatedObject.IsEnabledChanged -= OnIsEnabledChanged;
         }
+
+        private void OnIsEnabledChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            var angle = 360d / App.PlayerNumber * Turn/180*Math.PI;
+            var toX = PlayerListConstants.Diameter * Math.Sin(angle)+(IsSecond?offset:0);
+            var toY = -PlayerListConstants.Diameter * Math.Cos(angle);
+            points.Add(new Point(toX, toY));
+            var duration = TimeSpan.FromSeconds(0.2);
+            if ((bool)e.NewValue)
+            {
+                var bd = (Border)sender;
+                var origin = bd.RenderTransformOrigin;
+                DoubleAnimation xAnimation = new(toX, duration);
+                DoubleAnimation yAnimation = new(toY, duration);
+                var rt = new TranslateTransform();
+                bd.RenderTransform = rt;
+                rt.BeginAnimation(TranslateTransform.XProperty, xAnimation);
+                rt.BeginAnimation(TranslateTransform.YProperty, yAnimation);
+            }
+            else
+            {
+               
+            }
+        }
+
         protected override void OnAttached()
         {
             base.OnAttached();
+            AssociatedObject.IsEnabledChanged += OnIsEnabledChanged;
         }
     }
 }

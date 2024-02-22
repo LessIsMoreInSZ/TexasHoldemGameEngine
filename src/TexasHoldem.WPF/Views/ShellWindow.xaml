@@ -14,7 +14,8 @@
     Height="1000"
     IgnoreTaskbarOnMaximize="True"
     UseNoneWindowStyle="True"
-    WindowState="Maximized"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Normal"
     WindowTransitionsEnabled="False"
     mc:Ignorable="d">
     <mah:SplitView IsPaneOpen="{Binding ElementName=tg, Path=IsChecked, Mode=TwoWay}">
