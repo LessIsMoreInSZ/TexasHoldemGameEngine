@@ -14,6 +14,9 @@ namespace TexasHoldem.WPF.ViewModels
 {
     public partial class IndexViewModel : ObservableObject
     {
+        [ObservableProperty]
+        bool b=true;
+
         IMetroDialogService _dialogService;
         IRegionNavigationService _navigationService;
         public IEnumerable<GameMenuItem> Menu { get; set; } = new List<GameMenuItem>()
@@ -29,6 +32,10 @@ namespace TexasHoldem.WPF.ViewModels
             _dialogService = metroDialogService;
         }
 
+        public IndexViewModel()
+        {
+            
+        }
         [ObservableProperty]
         GameMenuItem mode;
         [RelayCommand]
@@ -39,7 +46,9 @@ namespace TexasHoldem.WPF.ViewModels
                 switch (Mode.Text)
                 {
                     case "Single Play":
-
+                        B = false;
+                        await Task.Delay(1000);
+                        _navigationService.RequestNavigate(PageKeys.Game);
                         break;
                     case "Online Play":
                         await _dialogService.ShowAsync("Banned", "This mode is permanently banned under the relevant law!");

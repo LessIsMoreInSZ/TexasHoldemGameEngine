@@ -23,7 +23,7 @@ namespace TexasHoldem.WPF.ViewModels
         [RelayCommand]
         void Loaded()
         {
-            _mainNavigationService.RequestNavigate(PageKeys.Game);
+            _mainNavigationService.RequestNavigate(PageKeys.Index);
         }
 
 
