@@ -5,6 +5,7 @@
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
     <cvt:HalfDoubleConverter x:Key="halfDoubleConverter" />
+    <cvt:QuarterDoubleConverter x:Key="quarterDoubleConverter" />
 
     <Style
         x:Key="tableListBox"
@@ -18,8 +19,8 @@
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
         <Setter Property="BorderBrush" Value="CadetBlue" />
         <Setter Property="BorderThickness" Value="2" />
-        <Setter Property="Width" Value="960" />
-        <Setter Property="Height" Value="960" />
+        <Setter Property="Width" Value="800" />
+        <Setter Property="Height" Value="800" />
         <Setter Property="ItemContainerStyle">
             <Setter.Value>
                 <Style BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" TargetType="ListBoxItem">
@@ -41,13 +42,21 @@
                         Name="bd"
                         Width="{TemplateBinding Width}"
                         Height="{TemplateBinding Height}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
-                        ClipToBounds="True"
-                        CornerRadius="{TemplateBinding Width,
-                                                       Converter={StaticResource halfDoubleConverter}}">
-                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        ClipToBounds="True">
+                        <Grid>
+                            <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Border
+                                Width="{TemplateBinding Width,
+                                                        Converter={StaticResource halfDoubleConverter}}"
+                                Height="{TemplateBinding Height,
+                                                         Converter={StaticResource halfDoubleConverter}}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                CornerRadius="{TemplateBinding Width,
+                                                                  Converter={StaticResource quarterDoubleConverter}}" />
+                        </Grid>
                     </Border>
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

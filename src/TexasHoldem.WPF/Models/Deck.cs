@@ -14,8 +14,6 @@ namespace TexasHoldem.WPF.Models
         [ObservableProperty]
         bool isDealed;
         [ObservableProperty]
-        double toX; 
-        [ObservableProperty]
-        double toY;
+        bool isPublic;
     }
 }

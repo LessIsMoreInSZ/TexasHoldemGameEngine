@@ -15,7 +15,7 @@
     IgnoreTaskbarOnMaximize="True"
     UseNoneWindowStyle="True"
     WindowStartupLocation="CenterScreen"
-    WindowState="Normal"
+    WindowState="Maximized"
     WindowTransitionsEnabled="False"
     mc:Ignorable="d">
     <mah:SplitView IsPaneOpen="{Binding ElementName=tg, Path=IsChecked, Mode=TwoWay}">
@@ -29,7 +29,7 @@
         </mah:SplitView.Pane>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="80" />
+                <RowDefinition Height="auto" />
                 <RowDefinition />
             </Grid.RowDefinitions>
             <TextBlock
@@ -40,18 +40,18 @@
             <DockPanel LastChildFill="False">
                 <ToggleButton
                     Name="tg"
-                    Width="60"
-                    Height="60"
-                    Margin="10"
+                    Width="40"
+                    Height="40"
+                    Margin="5"
                     BorderThickness="0"
                     Content="{iconPacks:Ionicons Kind=CogMD,
-                                                 Width=30,
-                                                 Height=30}"
+                                                 Width=20,
+                                                 Height=20}"
                     Style="{StaticResource MahApps.Styles.ToggleButton.Circle}" />
                 <Button
                     Content="{iconPacks:FeatherIcons Kind=LogOut,
-                                                     Width=30,
-                                                     Height=30}"
+                                                     Width=20,
+                                                     Height=20}"
                     DockPanel.Dock="Right"
                     Style="{StaticResource circleButton}" />
             </DockPanel>

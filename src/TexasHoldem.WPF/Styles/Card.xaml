@@ -3,39 +3,42 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="clr-namespace:TexasHoldem.WPF.Controls">
     <Style TargetType="control:CardUI">
-        <Setter Property="Width" Value="60" />
+        <Setter Property="Width" Value="90" />
         <Setter Property="BorderBrush" Value="Black" />
-        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderThickness" Value="2" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
-        <Setter Property="Height" Value="80" />
+        <Setter Property="Height" Value="120" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="control:CardUI">
                     <Border
                         x:Name="bd"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         ClipToBounds="True"
-                        CornerRadius="2"
+                        CornerRadius="4"
                         RenderTransformOrigin="0.5,0.5">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{TemplateBinding Picture}" Stretch="Fill" />
+                        </Border.Background>
                         <Grid x:Name="grid">
-                            <Image
-                                Name="image"
-                                Width="{TemplateBinding Width}"
-                                Height="{TemplateBinding Height}"
-                                Source="{TemplateBinding Picture}"
-                                Stretch="Uniform" />
                             <Image
                                 Name="mask"
                                 Width="{TemplateBinding Width}"
                                 Height="{TemplateBinding Height}"
-                                Source="Assets/back.jpg"
+                                Source="/Assets/back.jpg"
                                 Stretch="Uniform" />
                         </Grid>
                     </Border>
                     <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="BorderThickness" Value="3" />
+                            <Setter Property="BorderBrush" Value="AliceBlue" />
+                        </Trigger>
                         <Trigger Property="IsShown" Value="True">
                             <Trigger.EnterActions>
                                 <BeginStoryboard>
@@ -44,9 +47,9 @@
                                             Storyboard.TargetName="bd"
                                             Storyboard.TargetProperty="Width"
                                             Duration="0:0:0.6">
-                                            <LinearDoubleKeyFrame KeyTime="0:0:0" Value="60" />
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0" Value="90" />
                                             <LinearDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
-                                            <LinearDoubleKeyFrame KeyTime="0:0:0.6" Value="60" />
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0.6" Value="90" />
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimationUsingKeyFrames
                                             Storyboard.TargetName="mask"
@@ -57,7 +60,26 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </Trigger.EnterActions>
-                            <Trigger.ExitActions />
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimationUsingKeyFrames
+                                            Storyboard.TargetName="bd"
+                                            Storyboard.TargetProperty="Width"
+                                            Duration="0:0:0.6">
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0" Value="90" />
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0.3" Value="0" />
+                                            <LinearDoubleKeyFrame KeyTime="0:0:0.6" Value="90" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                        <DoubleAnimationUsingKeyFrames
+                                            Storyboard.TargetName="mask"
+                                            Storyboard.TargetProperty="Opacity"
+                                            Duration="0:0:0.3">
+                                            <DiscreteDoubleKeyFrame KeyTime="0:0:0.3" Value="1" />
+                                        </DoubleAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

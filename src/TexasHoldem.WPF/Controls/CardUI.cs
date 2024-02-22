@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TexasHoldem.Logic;
 using TexasHoldem.Logic.Cards;
@@ -16,7 +17,7 @@ namespace TexasHoldem.WPF.Controls
     public class CardUI : Control
     {
         private static string Dir = Environment.CurrentDirectory + @"\Assets\";
-        private Image image;
+       //private Image image;
         public bool IsShown
         {
             get { return (bool)GetValue(IsShownProperty); }
@@ -30,8 +31,11 @@ namespace TexasHoldem.WPF.Controls
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-            image = GetTemplateChild("image") as Image;
-            image.Source = new BitmapImage(new Uri(Picture));
+
+            var border = GetTemplateChild("bd") as Border;
+            border.Background=new ImageBrush(new BitmapImage(new Uri(Picture)));
+            //image = GetTemplateChild("image") as Image;
+            //image.Source = new BitmapImage(new Uri(Picture));
         }
 
         [Bindable(true)]

@@ -8,11 +8,11 @@ using System.Windows.Data;
 
 namespace TexasHoldem.WPF.Converters
 {
-    public class HalfDoubleConverter : IValueConverter
+    public class QuarterDoubleConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return (double)value / 1.6;
+            return (double)value/3.2;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:b="clr-namespace:TexasHoldem.WPF.Behaviors"
     xmlns:const="clr-namespace:TexasHoldem.WPF.Constants"
+    xmlns:control="clr-namespace:TexasHoldem.WPF.Controls"
     xmlns:cvt="clr-namespace:TexasHoldem.WPF.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -21,123 +22,209 @@
         <cvt:OppositeNumberConverter x:Key="oppositeNumberConverter" />
     </UserControl.Resources>
     <Grid>
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+
+        </Grid.ColumnDefinitions>
+        <StackPanel
+            Grid.Column="0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center">
             <Button
                 Width="200"
                 Margin="5"
                 Command="{Binding DealCommand}"
                 Content="Start" />
         </StackPanel>
-        <Viewbox Stretch="Uniform" Height="800" Width="800">
-        <Grid>
-        <ListBox ItemsSource="{Binding PlayerList}" Style="{StaticResource tableListBox}">
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border
-                        Name="bd"
-                        Width="200"
-                        Height="200"
-                        RenderTransformOrigin="0.5,0.5">
-                        <Border.RenderTransform>
-                            <TransformGroup>
-                                <TranslateTransform Y="-360" />
-                                <RotateTransform Angle="{Binding Angle}" />
-                            </TransformGroup>
-                        </Border.RenderTransform>
-                        <Border
-                            Margin="20"
-                            BorderBrush="AliceBlue"
-                            BorderThickness="1"
-                            CornerRadius="15"
-                            RenderTransformOrigin="0.5,0.5">
-                            <Border.RenderTransform>
-                                <RotateTransform Angle="{Binding Angle, Converter={StaticResource oppositeNumberConverter}}" />
-                            </Border.RenderTransform>
-                            <Grid Margin="5">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition />
-                                    <RowDefinition Height="auto" />
-                                </Grid.RowDefinitions>
-                                <Image
-                                    Width="120"
-                                    Height="120"
-                                    Source="{Binding Avatar}"
-                                    Stretch="Fill" />
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Margin="3"
-                                    Foreground="White"
-                                    Text="{Binding Name}"
-                                    TextAlignment="Center" />
-                            </Grid>
-                        </Border>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <ItemsControl
-            x:Name="ic"
-            Width="500"
-            Height="500"
-            ItemsSource="{Binding Deck}" RenderTransformOrigin="0.5,0.5">
-            <!--<ItemsControl.RenderTransform>
-                <TranslateTransform X="-106" />
-            </ItemsControl.RenderTransform>-->
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="Loaded">
-                    <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding ElementName=ic}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="model:Deck">
-                    <Border
-                        Width="60"
-                        Height="80"
-                        BorderBrush="Black"
-                        BorderThickness="1"
-                        IsEnabled="{Binding IsDealed}"
-                        RenderTransformOrigin="0.5,0.5">
-                        <i:Interaction.Behaviors>
-                            <b:DeckDealBehavior />
-                        </i:Interaction.Behaviors>
-                        <Border.RenderTransform>
-                            <TranslateTransform x:Name="trans" X="{Binding Offset}" />
-                        </Border.RenderTransform>
-                        <Image Source="/Assets/back.jpg" />
-                    </Border>
-                    <!--<DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding IsDealed}" Value="True">
-                            <DataTrigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="trans"
-                                            Storyboard.TargetProperty="X"
-                                            To="{Binding ToX}"
-                                            Duration="0:0:0.4" />
-                                        <DoubleAnimation
-                                            Storyboard.TargetName="trans"
-                                            Storyboard.TargetProperty="Y"
-                                            To="{Binding ToY}"
-                                            Duration="0:0:0.4" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </DataTrigger.EnterActions>
-                        </DataTrigger>
-                    </DataTemplate.Triggers>-->
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            </ItemsControl>
+
+        <Viewbox
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            Stretch="Uniform">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <ListBox ItemsSource="{Binding PlayerList}" Style="{StaticResource tableListBox}">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Name="bd" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TransformGroup>
+                                        <TranslateTransform Y="-332" />
+                                        <RotateTransform Angle="{Binding Angle}" />
+                                    </TransformGroup>
+                                </Border.RenderTransform>
+                                <Border RenderTransformOrigin="0.5,0.5">
+                                    <Border.RenderTransform>
+                                        <RotateTransform Angle="{Binding Angle, Converter={StaticResource oppositeNumberConverter}}" />
+                                    </Border.RenderTransform>
+                                    <Grid Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition Height="auto" />
+                                        </Grid.RowDefinitions>
+                                        <Border
+                                            BorderBrush="AliceBlue"
+                                            BorderThickness="2"
+                                            ClipToBounds="True"
+                                            CornerRadius="5">
+                                            <Image
+                                                Width="100"
+                                                Height="100"
+                                                Source="{Binding Avatar}"
+                                                Stretch="Fill" />
+                                        </Border>
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Margin="3"
+                                            Foreground="White"
+                                            Text="{Binding Name}"
+                                            TextAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ItemsControl
+                    x:Name="ic"
+                    ItemsSource="{Binding Deck}"
+                    RenderTransformOrigin="0.5,0.5">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <Grid />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="model:Deck">
+                            <Border
+                                Width="45"
+                                Height="60"
+                                BorderBrush="Black"
+                                BorderThickness="1"
+                                ClipToBounds="True"
+                                CornerRadius="3"
+                                Focusable="{Binding IsPublic}"
+                                IsEnabled="{Binding IsDealed}"
+                                RenderTransformOrigin="0.5,0.5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="/Assets/back.jpg" />
+                                </Border.Background>
+                                <i:Interaction.Behaviors>
+                                    <b:DeckDealBehavior />
+                                </i:Interaction.Behaviors>
+                                <Border.RenderTransform>
+                                    <TranslateTransform x:Name="trans" X="{Binding Offset}" />
+                                </Border.RenderTransform>
+                            </Border>
+                            <DataTemplate.Triggers>
+                                <!--<DataTrigger Binding="{Binding IsPublic}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="scale"
+                                                    Storyboard.TargetProperty="ScaleX"
+                                                    To="2"
+                                                    Duration="0:0:0.5" />
+                                                <DoubleAnimation
+                                                    Storyboard.TargetName="scale"
+                                                    Storyboard.TargetProperty="ScaleY"
+                                                    To="2"
+                                                    Duration="0:0:0.5" />
+                                            </Storyboard>
+
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                </DataTrigger>-->
+
+                                <!--   动画的To属性如果绑定数据源的属性会报错，改用行为实现发牌
+    <DataTrigger Binding="{Binding IsDealed}" Value="True">
+        <DataTrigger.EnterActions>
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation
+                        Storyboard.TargetName="trans"
+                        Storyboard.TargetProperty="X"
+                        To="{Binding ToX}"
+                        Duration="0:0:0.4" />
+                    <DoubleAnimation
+                        Storyboard.TargetName="trans"
+                        Storyboard.TargetProperty="Y"
+                        To="{Binding ToY}"
+                        Duration="0:0:0.4" />
+                </Storyboard>
+            </BeginStoryboard>
+        </DataTrigger.EnterActions>
+    </DataTrigger>-->
+
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!--<control:CardUI>
+                    <i:Interaction.Behaviors>
+                        <b:ClickToFlipBehavior />
+                    </i:Interaction.Behaviors>
+                </control:CardUI>-->
+                <ItemsControl
+                    Margin="0,0,40,20"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    ItemsSource="{Binding MyCards}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="1" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <control:CardUI
+                                    Margin="0"
+                                    IsShown="{Binding IsShown}"
+                                    Suit="{Binding Suit}"
+                                    Visibility="{Binding Visibility}"
+                                    Value="{Binding Value}">
+                                    <i:Interaction.Behaviors>
+                                        <b:ClickToFlipBehavior />
+                                    </i:Interaction.Behaviors>
+                                </control:CardUI>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsControl Grid.Column="1" ItemsSource="{Binding PublicCards}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border>
+                                <control:CardUI
+                                    Margin="0"
+                                    IsShown="{Binding IsShown}"
+                                    Suit="{Binding Suit}"
+                                    Visibility="{Binding Visibility}"
+                                    Value="{Binding Value}">
+                                    <i:Interaction.Behaviors>
+                                        <b:ClickToFlipBehavior />
+                                    </i:Interaction.Behaviors>
+                                </control:CardUI>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </Grid>
         </Viewbox>
     </Grid>
