@@ -13,41 +13,16 @@
                                      Type=vm:IndexViewModel}"
     d:DesignHeight="900"
     d:DesignWidth="1600"
-    IsEnabled="{Binding B}"
     mc:Ignorable="d">
-    <UserControl.Style>
-        <Style TargetType="UserControl">
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="Opacity"
-                                    To="0"
-                                    Duration="0:0:0.5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                    <Trigger.ExitActions>
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <DoubleAnimation
-                                    Storyboard.TargetProperty="Opacity"
-                                    To="1"
-                                    Duration="0:0:0.5" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.ExitActions>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Style>
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard Storyboard="{StaticResource fadeIn}" />
+        </EventTrigger>
+    </UserControl.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
-
         </Grid.RowDefinitions>
         <Image
             Width="1000"
@@ -65,7 +40,6 @@
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding ModeSelectedCommand}" />
                 </i:EventTrigger>
-
             </i:Interaction.Triggers>
             <ListBox.ItemContainerStyle>
                 <Style BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" TargetType="ListBoxItem">
@@ -192,7 +166,10 @@
                 <DataTemplate>
                     <DockPanel>
                         <iconPacks:PackIconFontAwesome Kind="{Binding Icon}" />
-                        <TextBlock Text="{Binding Text}" />
+                        <TextBlock
+                            FontFamily="MV Boli"
+                            FontSize="20"
+                            Text="{Binding Text}" />
                     </DockPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

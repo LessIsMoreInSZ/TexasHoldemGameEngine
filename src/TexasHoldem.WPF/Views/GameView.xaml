@@ -17,7 +17,11 @@
     d:DesignHeight="1080"
     d:DesignWidth="1920"
     mc:Ignorable="d">
-
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard Storyboard="{StaticResource fadeIn}" />
+        </EventTrigger>
+    </UserControl.Triggers>
     <UserControl.Resources>
         <cvt:OppositeNumberConverter x:Key="oppositeNumberConverter" />
     </UserControl.Resources>

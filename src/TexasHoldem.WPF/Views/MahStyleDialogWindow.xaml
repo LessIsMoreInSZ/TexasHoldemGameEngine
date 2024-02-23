@@ -7,30 +7,6 @@
     xmlns:local="clr-namespace:TexasHoldem.WPF.Views"
     xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="{Binding Title}"
     SizeToContent="WidthAndHeight"
-    UseNoneWindowStyle="True"
-    mc:Ignorable="d">
-    <mah:MetroWindow.Template>
-        <ControlTemplate TargetType="Window">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid>
-                    <TextBlock Text="{TemplateBinding Title}" />
-                    <Button
-                        Width="30"
-                        Height="30"
-                        HorizontalAlignment="Right"
-                        Content="{iconPacks:ForkAwesome Kind=WindowClose}"
-                        Style="{StaticResource circleButton}" />
-
-                </Grid>
-                <ContentPresenter Content="{TemplateBinding Content}" />
-            </Grid>
-        </ControlTemplate>
-    </mah:MetroWindow.Template>
-
-</mah:MetroWindow>
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d" />

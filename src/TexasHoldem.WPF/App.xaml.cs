@@ -42,6 +42,7 @@ namespace TexasHoldem.WPF
             containerRegistry.RegisterForNavigation<ShowPoker, ShowPokerVM>();
             containerRegistry.RegisterDialog<GameStartView, GameStartViewModel>(DialogKeys.Start);
             containerRegistry.RegisterDialog<GameResultView, GameResultViewModel>(DialogKeys.Result);
+           containerRegistry.RegisterDialogWindow<MahStyleDialogWindow>();
         }
     }
 }

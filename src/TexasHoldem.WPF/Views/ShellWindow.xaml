@@ -49,6 +49,7 @@
                                                  Height=20}"
                     Style="{StaticResource MahApps.Styles.ToggleButton.Circle}" />
                 <Button
+                    Command="{Binding ReturnCommand}"
                     Content="{iconPacks:FeatherIcons Kind=LogOut,
                                                      Width=20,
                                                      Height=20}"

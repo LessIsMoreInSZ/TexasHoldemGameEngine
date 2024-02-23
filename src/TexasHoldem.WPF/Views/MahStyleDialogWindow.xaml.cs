@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace TexasHoldem.WPF.Views
     /// <summary>
     /// MahStyleDialogWindow.xaml 的交互逻辑
     /// </summary>
-    public partial class MahStyleDialogWindow : MetroWindow
+    public partial class MahStyleDialogWindow : MetroWindow,IDialogWindow
     {
         public MahStyleDialogWindow()
         {
             InitializeComponent();
         }
+
+        public IDialogResult Result { get ; set ; }
     }
 }

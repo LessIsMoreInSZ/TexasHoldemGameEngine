@@ -13,15 +13,11 @@ using TexasHoldem.WPF.Models;
 
 namespace TexasHoldem.WPF.ViewModels
 {
-    public partial class IndexViewModel : ObservableObject
+    public partial class IndexViewModel : ObservableObject,INavigationAware
     {
         IMetroDialogService _mahDialog;
         IRegionNavigationService _navigationService;
         IDialogService _dialogService;
-
-        //触发IndexView的动画
-        [ObservableProperty]
-        bool b=true;
 
         //当前游戏菜单选项
         [ObservableProperty]
@@ -39,15 +35,12 @@ namespace TexasHoldem.WPF.ViewModels
         [RelayCommand]
         async Task ModeSelected()
         {
-            if (mode != null)
+            if (Mode != null)
             {
                 switch (Mode.Text)
                 {
                     case "Single Play":
-                        _dialogService.ShowDialog();
-
-                        B = false;
-                        await Task.Delay(1000);
+                        _dialogService.ShowDialog(DialogKeys.Start);
                         _navigationService.RequestNavigate(PageKeys.Game);
                         break;
                     case "Online Play":
@@ -63,6 +56,17 @@ namespace TexasHoldem.WPF.ViewModels
                 Mode = null;
             }
         }
+
+        public async void OnNavigatedTo(NavigationContext navigationContext)
+        {
+        }
+
+        public bool IsNavigationTarget(NavigationContext navigationContext) => true;
+
+        public async void OnNavigatedFrom(NavigationContext navigationContext)
+        {
+        }
+
         public IndexViewModel(IRegionManager regionManager, IMetroDialogService metroDialogService,IDialogService dialogService)
         {
             _navigationService = regionManager.Regions[Regions.Main].NavigationService;
