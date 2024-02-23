@@ -29,6 +29,16 @@
                             </Storyboard>
                         </BeginStoryboard>
                     </Trigger.EnterActions>
+                    <Trigger.ExitActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                    Storyboard.TargetProperty="Opacity"
+                                    To="1"
+                                    Duration="0:0:0.5" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.ExitActions>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -55,6 +65,7 @@
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding ModeSelectedCommand}" />
                 </i:EventTrigger>
+
             </i:Interaction.Triggers>
             <ListBox.ItemContainerStyle>
                 <Style BasedOn="{StaticResource MahApps.Styles.ListBoxItem}" TargetType="ListBoxItem">
