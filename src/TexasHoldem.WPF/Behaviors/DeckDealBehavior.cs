@@ -53,7 +53,7 @@ namespace TexasHoldem.WPF.Behaviors
         {
             var angle = 360d / App.PlayerNumber * Turn / 180 * Math.PI;
             var toX = DeckDealBehavior.Diameter * Math.Sin(angle) + (IsSecond ? offset : 0);
-            var toY = -DeckDealBehavior.Diameter * Math.Cos(angle);
+            var toY = DeckDealBehavior.Diameter * Math.Cos(angle);
             var duration = TimeSpan.FromSeconds(0.2);
             if ((bool)e.NewValue)
             {

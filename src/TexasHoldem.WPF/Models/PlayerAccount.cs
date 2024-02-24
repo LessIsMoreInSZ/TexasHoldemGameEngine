@@ -19,9 +19,9 @@ namespace TexasHoldem.WPF.Models
         partial void OnWealthChanged(double value)
         {
 
-             if (value<=(double)Level.Junior)
+            if (value <= (double)Level.Junior)
             {
-                Level= Level.Noob;
+                Level = Level.Noob;
             }
             else if (value > (double)Level.Junior && value <= (double)Level.Intermediate)
             {
@@ -48,15 +48,18 @@ namespace TexasHoldem.WPF.Models
         Level level;
         [ObservableProperty]
         int totalRounds;
-
+        [ObservableProperty]
+        string avatar;
+        [ObservableProperty]
+        double angle;
     }
     public enum Level
     {
         Noob = 0,
-        Junior=1000,
-        Intermediate=3000,
+        Junior = 1000,
+        Intermediate = 3000,
         Senior = 6000,
         Skilled = 10000,
-        发哥=100000,
+        发哥 = 100000,
     }
 }

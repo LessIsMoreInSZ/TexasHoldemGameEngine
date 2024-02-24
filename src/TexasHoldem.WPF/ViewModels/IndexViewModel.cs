@@ -40,8 +40,14 @@ namespace TexasHoldem.WPF.ViewModels
                 switch (Mode.Text)
                 {
                     case "Single Play":
-                        _dialogService.ShowDialog(DialogKeys.Start);
-                        _navigationService.RequestNavigate(PageKeys.Game);
+                        _dialogService.ShowDialog(DialogKeys.Start, r =>
+                        {
+                            if (r.Result == ButtonResult.OK)
+                            {
+                                _navigationService.RequestNavigate(PageKeys.Game);
+                            }
+                        });
+                       
                         break;
                     case "Online Play":
                         await _mahDialog.ShowAsync("Banned", "This mode is permanently banned under the relevant law!");

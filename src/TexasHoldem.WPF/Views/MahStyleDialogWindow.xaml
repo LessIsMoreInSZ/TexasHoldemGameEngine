@@ -9,4 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     SizeToContent="WidthAndHeight"
     WindowStartupLocation="CenterScreen"
+    WindowTitleBrush="#FF252525"
+    WindowTransitionsEnabled="False"
     mc:Ignorable="d" />

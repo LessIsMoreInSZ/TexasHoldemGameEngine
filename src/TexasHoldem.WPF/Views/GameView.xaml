@@ -62,7 +62,7 @@
                             <Border Name="bd" RenderTransformOrigin="0.5,0.5">
                                 <Border.RenderTransform>
                                     <TransformGroup>
-                                        <TranslateTransform Y="-332" />
+                                        <TranslateTransform Y="332" />
                                         <RotateTransform Angle="{Binding Angle}" />
                                     </TransformGroup>
                                 </Border.RenderTransform>
@@ -100,7 +100,7 @@
                 </ListBox>
                 <ItemsControl
                     x:Name="ic"
-                    ItemsSource="{Binding Deck}"
+                    ItemsSource="{Binding Decks}"
                     RenderTransformOrigin="0.5,0.5">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -130,25 +130,6 @@
                                 </Border.RenderTransform>
                             </Border>
                             <DataTemplate.Triggers>
-                                <!--<DataTrigger Binding="{Binding IsPublic}" Value="True">
-                                    <DataTrigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <DoubleAnimation
-                                                    Storyboard.TargetName="scale"
-                                                    Storyboard.TargetProperty="ScaleX"
-                                                    To="2"
-                                                    Duration="0:0:0.5" />
-                                                <DoubleAnimation
-                                                    Storyboard.TargetName="scale"
-                                                    Storyboard.TargetProperty="ScaleY"
-                                                    To="2"
-                                                    Duration="0:0:0.5" />
-                                            </Storyboard>
-
-                                        </BeginStoryboard>
-                                    </DataTrigger.EnterActions>
-                                </DataTrigger>-->
 
                                 <!--   动画的To属性如果绑定数据源的属性会报错，改用行为实现发牌
     <DataTrigger Binding="{Binding IsDealed}" Value="True">
