@@ -73,19 +73,16 @@ namespace TexasHoldem.WPF.ViewModels
         [RelayCommand]
         async Task Deal()
         {
-            //如果不判断当前Decks是不是全新的（没发牌给玩家或公共牌），直接调用CleanTable，第一张牌就发不出去，我也不知道为什么
-            //如果有懂哥有自信能解决这个问题：注释掉下三行，直接使用CleanTable方法
-            if (Decks.Any(n => n.IsDealed))
-            {
-                CleanTable();
-            }
-            //CleanTable();
+            CleanTable();
+
+            //如果不等待，第一张牌发不出去，头想烂了想不通为什么
+            await Task.Delay(10);
 
             HashSet<int> IndexSet = new();
             int length = 0;
             while (length < App.PlayerNumber * 2 + 5)
             {
-                IndexSet.Add(Random.Shared.Next(0, 53));
+                IndexSet.Add(Random.Shared.Next(0, 51));
                 length = IndexSet.Count;
             }
             indexArray = IndexSet.ToArray();
@@ -105,7 +102,6 @@ namespace TexasHoldem.WPF.ViewModels
                     DeckDealBehavior.IsSecond = true;
                 await Task.Delay(200);
             }
-
         }
         async Task DealToPublic()
         {
@@ -146,7 +142,9 @@ namespace TexasHoldem.WPF.ViewModels
         }
         void CleanTable()
         {
-            Decks = new(Enumerable.Range(0, 54).Select(n => new Deck { Offset = (n - 27) * 4 }));
+            //重置Deck
+            Decks = new(Enumerable.Range(0, 52).Select(n => new Deck { Offset = (n - 27) * 4 }));
+            //重置PublicCards
             PublicCards = new(Enumerable.Range(0, 5).Select(n => new Card { Value = Value.BigJoker }));
         }
 

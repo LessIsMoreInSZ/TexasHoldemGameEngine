@@ -36,8 +36,8 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="BorderThickness" Value="3" />
-                            <Setter Property="BorderBrush" Value="AliceBlue" />
+                            <Setter Property="BorderThickness" Value="4" />
+
                         </Trigger>
                         <Trigger Property="IsShown" Value="True">
                             <Trigger.EnterActions>
