@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,6 +52,7 @@ namespace TexasHoldem.WPF.Behaviors
         }
         private void OnDealedToPlayer(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
+            Console.WriteLine(Thread.CurrentThread.ManagedThreadId.ToString());
             var angle = 360d / App.PlayerNumber * Turn / 180 * Math.PI;
             var toX = DeckDealBehavior.Diameter * Math.Sin(angle) + (IsSecond ? offset : 0);
             var toY = DeckDealBehavior.Diameter * Math.Cos(angle);
