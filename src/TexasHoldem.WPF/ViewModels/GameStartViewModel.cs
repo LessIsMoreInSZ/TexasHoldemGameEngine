@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using TexasHoldem.WPF.Models;
 
 namespace TexasHoldem.WPF.ViewModels
@@ -47,8 +48,22 @@ namespace TexasHoldem.WPF.ViewModels
         [RelayCommand]
         void Start()
         {
+            if (Number == 0)
+            {
+                MessageBox.Show("玩家数量必须大于0！");
+                return;
+            }
+            if (Player==null)
+            {
+                MessageBox.Show("请选择或新建玩家账户！");
+                return;
+            }
+
+
             App.PlayerNumber = Number;
             App.Player = Player;
+
+
             RequestClose(new DialogResult(ButtonResult.OK));
         }
         [RelayCommand]
