@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -76,7 +77,7 @@ namespace TexasHoldem.WPF.ViewModels
             CleanTable();
 
             //如果不等待，第一张牌发不出去，头想烂了想不通为什么
-            await Task.Delay(10);
+            //await Task.Delay(10);
 
             HashSet<int> IndexSet = new();
             int length = 0;
@@ -86,12 +87,13 @@ namespace TexasHoldem.WPF.ViewModels
                 length = IndexSet.Count;
             }
             indexArray = IndexSet.ToArray();
-            await DealToPlayers();
+             DealToPlayers();
             await DealToPublic();
             ResetDealParams();
         }
         async Task DealToPlayers()
         {
+            await Task.Delay(1);
             for (int i = 0; i < App.PlayerNumber * 2; i++)
             {
                 var index = indexArray[i];
@@ -140,6 +142,7 @@ namespace TexasHoldem.WPF.ViewModels
 
             }));
         }
+
         void CleanTable()
         {
             //重置Deck
