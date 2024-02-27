@@ -42,12 +42,13 @@ namespace TexasHoldem.WPF.ViewModels
                 new( "赌神黄四郎",  "/Assets/zrf.jpg"),
                 new( "Solid本体",  "/Assets/pyy.jpg"),
                 new( "寒战总指挥刘sir",  "/Assets/gfc.jpg" ),
-            new( "三重刘德华",  "/Assets/ldh.jpg" ),
+                new( "三重刘德华",  "/Assets/ldh.jpg" ),
                 new( "不愿意收手的阿祖", "/Assets/wyz.jpg"),
                 new( "赌神黄四郎",  "/Assets/zrf.jpg"),
                 new( "Solid本体",  "/Assets/pyy.jpg"),
+                new( "Solid本体",  "/Assets/pyy.jpg"),
                 new( "寒战总指挥刘sir",  "/Assets/gfc.jpg" ),
-                   new( "三重刘德华",  "/Assets/ldh.jpg" ),
+                new( "三重刘德华",  "/Assets/ldh.jpg" ),
                 new( "不愿意收手的阿祖", "/Assets/wyz.jpg"),
                 new( "赌神黄四郎",  "/Assets/zrf.jpg"),
                 new( "Solid本体",  "/Assets/pyy.jpg"),
@@ -77,7 +78,7 @@ namespace TexasHoldem.WPF.ViewModels
             CleanTable();
 
             //如果不等待，第一张牌发不出去，头想烂了想不通为什么
-            //await Task.Delay(10);
+            await Task.Delay(10);
 
             HashSet<int> IndexSet = new();
             int length = 0;
@@ -87,7 +88,7 @@ namespace TexasHoldem.WPF.ViewModels
                 length = IndexSet.Count;
             }
             indexArray = IndexSet.ToArray();
-             DealToPlayers();
+            await DealToPlayers();
             await DealToPublic();
             ResetDealParams();
         }
