@@ -5,6 +5,9 @@ I like Texas Hold’em and I want use WPF to show it.
 
 ## Build status
 
+##2024/2/27
+详细描述：GameViewModel中DealToPlayers方法需要在前面加上await Task.Delay(1);否则第一次发牌行为OnDealedToPlayer方法无法进入。<br/>
+
 ## 2024/2/26
 解决了昨天的bug但不知道什么原理：简单粗暴的在Decks被赋予新值后Delay了10ms<br/>
 Decks创建时每个Border都Attach了行为，但是第一个Border没有触发OnDealToPlayers方法(断点未进入)<br/>
