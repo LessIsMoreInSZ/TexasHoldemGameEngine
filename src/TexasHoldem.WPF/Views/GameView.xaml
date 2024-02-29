@@ -36,10 +36,68 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Center">
             <Button
-                Width="200"
+                Width="150"
                 Margin="5"
                 Command="{Binding DealCommand}"
                 Content="Start" />
+
+            <Button
+                Name="btnCheckOrCall"
+                Width="150"
+                Margin="0,20,0,0"
+                Command="{Binding CheckOrCallCommand}"
+                Content="CheckOrCall" />
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="{Binding RaiseChipHint}" Visibility="{Binding IsRaiseCommitVisibility}" />
+                <TextBox
+                    Width="100"
+                    Margin="0,20,0,0"
+                    Background="DarkBlue"
+                    Foreground="White"
+                    Text="{Binding RaiseChipCount}"
+                    Visibility="{Binding IsRaiseCommitVisibility}" />
+            </StackPanel>
+
+            <Button
+                Name="btnRaise"
+                Width="150"
+                Margin="0,20,0,0"
+                Command="{Binding RaiseCommand}"
+                Content="Raise" />
+            <Button
+                Name="btnFold"
+                Width="150"
+                Margin="0,20,0,0"
+                Command="{Binding FoldCommand}"
+                Content="Fold" />
+            <Button
+                Name="btnAllIn"
+                Width="150"
+                Margin="0,20,0,0"
+                Command="{Binding AllInCommand}"
+                Content="AllIn" />
+            <ItemsControl Margin="50,30,40,20" ItemsSource="{Binding MyCards}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <control:CardUI
+                                Margin="0"
+                                IsShown="{Binding IsShown}"
+                                Suit="{Binding Suit}"
+                                Value="{Binding Value}">
+                                <i:Interaction.Behaviors>
+                                    <b:ClickToFlipBehavior />
+                                </i:Interaction.Behaviors>
+                            </control:CardUI>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
 
         <Viewbox
@@ -74,6 +132,9 @@
                                         <Grid.RowDefinitions>
                                             <RowDefinition />
                                             <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
+                                            <RowDefinition Height="auto" />
                                         </Grid.RowDefinitions>
                                         <Border
                                             BorderBrush="AliceBlue"
@@ -91,6 +152,24 @@
                                             Margin="3"
                                             Foreground="White"
                                             Text="{Binding Name}"
+                                            TextAlignment="Center" />
+                                        <TextBlock
+                                            Grid.Row="2"
+                                            Margin="3"
+                                            Foreground="White"
+                                            Text="{Binding Strcurrentpot}"
+                                            TextAlignment="Center" />
+                                        <TextBlock
+                                            Grid.Row="3"
+                                            Margin="3"
+                                            Foreground="White"
+                                            Text="{Binding Strstatus}"
+                                            TextAlignment="Center" />
+                                        <TextBlock
+                                            Grid.Row="4"
+                                            Margin="3"
+                                            Foreground="White"
+                                            Text="{Binding Straction}"
                                             TextAlignment="Center" />
                                     </Grid>
                                 </Border>
@@ -160,33 +239,9 @@
                         <b:ClickToFlipBehavior />
                     </i:Interaction.Behaviors>
                 </control:CardUI>-->
-                <ItemsControl
-                    Margin="0,0,40,20"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    ItemsSource="{Binding MyCards}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Rows="1" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border>
-                                <control:CardUI
-                                    Margin="0"
-                                    IsShown="{Binding IsShown}"
-                                    Suit="{Binding Suit}"
-                                    Visibility="{Binding Visibility}"
-                                    Value="{Binding Value}">
-                                    <i:Interaction.Behaviors>
-                                        <b:ClickToFlipBehavior />
-                                    </i:Interaction.Behaviors>
-                                </control:CardUI>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+
+
+
                 <ItemsControl Grid.Column="1" ItemsSource="{Binding PublicCards}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

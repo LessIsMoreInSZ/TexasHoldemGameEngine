@@ -52,6 +52,13 @@ namespace TexasHoldem.WPF.Models
         string avatar;
         [ObservableProperty]
         double angle;
+        [ObservableProperty]
+        string strcurrentpot;
+        [ObservableProperty]
+        string strstatus;
+        [ObservableProperty]
+        string straction;
+
     }
     public enum Level
     {
