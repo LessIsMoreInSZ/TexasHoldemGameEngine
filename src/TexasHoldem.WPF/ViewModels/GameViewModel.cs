@@ -124,6 +124,7 @@ namespace TexasHoldem.WPF.ViewModels
         [ObservableProperty]
         private Visibility isRaiseCommitVisibility = Visibility.Hidden;
 
+
         public GameViewModel(IEventAggregator _aggregator)
         {
             this.aggregator = _aggregator;
@@ -188,20 +189,20 @@ namespace TexasHoldem.WPF.ViewModels
                     PublicCards.Add(cardUI);
                 }
 
-                for (int i = 0; i < PublicCards.Count; i++)
+                
+                if (PublicCards.Count == 3)
                 {
-                    var index = indexArray[App.PlayerNumber * 2 + i];
+                    for (int i = 0; i < PublicCards.Count; i++)
+                    {
+                        var index = indexArray[App.PlayerNumber * 2 + i];
+                        await DealToPublic(index);
+                    }
+                }
+                else
+                {
+                    var index = indexArray[App.PlayerNumber * 2 + PublicCards.Count];
                     await DealToPublic(index);
                 }
-                //if (PublicCards.Count == 3)
-                //{
-
-                //}
-                //else
-                //{
-                //    var index = indexArray[App.PlayerNumber * 2 + PublicCards.Count];
-                //    await DealToPublic(index);
-                //}
 
             });
         }

@@ -31,6 +31,12 @@
             <ColumnDefinition Width="*" />
 
         </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <TextBlock Text="MainPot:" />
+            <TextBlock Name="txtMainPot" Text="{Binding StrMainPot}" />
+            <TextBlock Text="SidePot:" />
+            <TextBlock Name="txtSidePot" Text="{Binding StrSidePot}" />
+        </StackPanel>
         <StackPanel
             Grid.Column="0"
             HorizontalAlignment="Left"
