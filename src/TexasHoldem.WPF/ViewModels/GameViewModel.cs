@@ -26,7 +26,7 @@ namespace TexasHoldem.WPF.ViewModels
 {
     public partial class GameViewModel : ObservableObject, INavigationAware
     {
-        public partial class Card : ObservableObject
+        public partial class PlayingCard : ObservableObject
         {
             [ObservableProperty]
             Value value;
@@ -64,16 +64,16 @@ namespace TexasHoldem.WPF.ViewModels
             };
 
         [ObservableProperty]
-        ObservableCollection<Card> myCards = new(Enumerable.Range(0, 2).Select(n => new Card { Value = Value.LittleJoker }));
+        ObservableCollection<PlayingCard> myCards = new(Enumerable.Range(0, 2).Select(n => new PlayingCard { Value = Value.LittleJoker }));
 
         [ObservableProperty]
         ObservableCollection<PlayerAccount> playerList;
 
         [ObservableProperty]
-        ObservableCollection<Models.Deck> decks;
+        ObservableCollection<Models.PlayingDeck> decks;
 
         [ObservableProperty]
-        ObservableCollection<Card> publicCards;
+        ObservableCollection<PlayingCard> publicCards;
 
         /// <summary>
         /// 公共牌
@@ -457,9 +457,9 @@ namespace TexasHoldem.WPF.ViewModels
         void CleanTable()
         {
             //重置Deck
-            Decks = new(Enumerable.Range(0, 52).Select(n => new Deck { Offset = (n - 27) * 4 }));
+            Decks = new(Enumerable.Range(0, 52).Select(n => new PlayingDeck { Offset = (n - 27) * 4 }));
             //重置PublicCards
-            PublicCards = new(Enumerable.Range(0, 5).Select(n => new Card { Value = Value.BigJoker }));
+            PublicCards = new(Enumerable.Range(0, 5).Select(n => new PlayingCard { Value = Value.BigJoker }));
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)

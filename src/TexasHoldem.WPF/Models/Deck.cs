@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TexasHoldem.WPF.Models
 {
-    public partial class Deck:ObservableObject
+    public partial class PlayingDeck:ObservableObject
     {
         [ObservableProperty]
         double offset;
