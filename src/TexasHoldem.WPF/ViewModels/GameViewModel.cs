@@ -14,6 +14,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using TexasHoldem.AI.DummyPlayer;
+using TexasHoldem.AI.SmartPlayer;
 using TexasHoldem.Logic.Cards;
 using TexasHoldem.Logic.GameMechanics;
 using TexasHoldem.Logic.Players;
@@ -39,9 +41,12 @@ namespace TexasHoldem.WPF.ViewModels
             Visibility visibility = Visibility.Hidden;
         }
 
-        int[] indexArray;
+        int[] indexArray; //牌堆
+        private List<PlayingCard> lstAllHand = new List<PlayingCard>();//所有玩家手牌
+        private int playerCnt = 0;//发牌数量
+        private int cntCommCard = 0;
         private IEventAggregator aggregator;
-        private static readonly List<IPlayer> Players = new List<IPlayer>();
+        private static readonly List<IPlayer> Players = new List<IPlayer>();// 逻辑玩家列表
         private PokerPlayer poker;
 
         List<Tuple<string, string>> aiPlayers = new()
@@ -56,22 +61,22 @@ namespace TexasHoldem.WPF.ViewModels
             new( "Player8",  "/Assets/zrf.jpg"),
             new( "Player9",  "/Assets/pyy.jpg"),
             new( "Player10",  "/Assets/pyy.jpg"),
-            new( "Player11",  "/Assets/gfc.jpg" ),
-            new( "Player12",  "/Assets/ldh.jpg" ),
-            new( "Player13", "/Assets/wyz.jpg"),
-            new( "Player14",  "/Assets/zrf.jpg"),
-            new( "Player15",  "/Assets/pyy.jpg"),
-            new( "Player16",  "/Assets/gfc.jpg" ),
+            //new( "Player11",  "/Assets/gfc.jpg" ),
+            //new( "Player12",  "/Assets/ldh.jpg" ),
+            //new( "Player13", "/Assets/wyz.jpg"),
+            //new( "Player14",  "/Assets/zrf.jpg"),
+            //new( "Player15",  "/Assets/pyy.jpg"),
+            //new( "Player16",  "/Assets/gfc.jpg" ),
         };
 
         [ObservableProperty]
         ObservableCollection<PlayingCard> myCards = new(Enumerable.Range(0, 2).Select(n => new PlayingCard { Value = Value.LittleJoker }));
 
         [ObservableProperty]
-        ObservableCollection<PlayerAccount> playerList;
+        ObservableCollection<PlayerAccount> playerList;//ui玩家列表
 
         [ObservableProperty]
-        ObservableCollection<Models.PlayingDeck> decks;
+        ObservableCollection<PlayingDeck> decks;
 
         [ObservableProperty]
         ObservableCollection<PlayingCard> publicCards;
@@ -122,10 +127,10 @@ namespace TexasHoldem.WPF.ViewModels
         public GameViewModel(IEventAggregator _aggregator)
         {
             this.aggregator = _aggregator;
-            aggregator.GetEvent<CardEvent>().Subscribe(ShowCard);
-            aggregator.GetEvent<TextChangeEvent>().Subscribe(ShowText);
-            aggregator.GetEvent<CommCardEvent>().Subscribe(ShowCommCard);
-            aggregator.GetEvent<ActionEvent>().Subscribe(ShowRaise);
+            aggregator.GetEvent<CardEvent>().Subscribe(ShowCard);// 发手牌
+            aggregator.GetEvent<TextChangeEvent>().Subscribe(ShowText);// 展示玩家动作
+            aggregator.GetEvent<CommCardEvent>().Subscribe(ShowCommCard);// 发公共牌
+            aggregator.GetEvent<ActionEvent>().Subscribe(ShowRaise);// Raise
         }
 
         private void ShowRaise(ActionEventPara para)
@@ -133,10 +138,18 @@ namespace TexasHoldem.WPF.ViewModels
             RaiseChipHint = para.RaiseMoneyHint;
         }
 
-        private void ShowCard(TexasHoldem.Logic.Cards.Card card)
+        private void ShowCard(Card card)
         {
-            Application.Current.Dispatcher.BeginInvoke(() =>
+            Application.Current.Dispatcher.BeginInvoke(async () =>
             {
+                lstAllHand.Add(new PlayingCard() { Suit = EnumChangeCardSuit(card.Suit), Value = EnumChangeCardType(card.Type) });
+                playerCnt++;
+                if (playerCnt == App.PlayerNumber * 2)
+                {
+                    playerCnt = 0;
+                    await DealToPlayers();
+                }
+
                 string strSuit = string.Empty;
                 if (card.Suit == CardSuit.Club)
                 {
@@ -154,49 +167,6 @@ namespace TexasHoldem.WPF.ViewModels
                 {
                     strSuit = "♥";
                 }
-
-
-
-                //if (playerCnt == 0 || playerCnt == 1)
-                //{
-                //    //ListPlayerA.Clear();
-                //    ListPlayerA.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-                //}
-                //else if (playerCnt == 2 || playerCnt == 3)
-                //{
-                //    //ListPlayerB.Clear();
-                //    ListPlayerB.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-                //}
-                //else if (playerCnt == 4 || playerCnt == 5)
-                //{
-                //    //ListPlayerC.Clear();
-                //    ListPlayerC.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-                //}
-                //else if (playerCnt == 6 || playerCnt == 7)
-                //{
-                //    //ListPlayerD.Clear();
-                //    ListPlayerD.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-                //}
-                //else if (playerCnt == 8 || playerCnt == 9)
-                //{
-                //    //ListPlayerE.Clear();
-                //    ListPlayerE.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-                //}
-                //else if (playerCnt == 10 || playerCnt == 11)
-                //{
-                //    //ListPlayerF.Clear();
-                //    ListPlayerF.Add(new() { IsShown = true, Value = EnumChangeCardType(card.Type), Suit = EnumChangeCardSuit(card.Suit) });
-                //}
-                //str6 += strSuit + card.Type.ToString() + "\r\n";
-                //playerCnt++;
-                //if (playerCnt % 2 == 0)
-                //    str6 += "---\r\n";
-
-                //if (playerCnt == 12)
-                //{
-                //    playerCnt = 0;
-                //}
-
             });
 
 
@@ -204,17 +174,35 @@ namespace TexasHoldem.WPF.ViewModels
 
         private void ShowCommCard(IReadOnlyCollection<TexasHoldem.Logic.Cards.Card> cards)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(async () =>
             {
-                CommCards.Clear();
+                if (cards.Count == PublicCards.Count)
+                    return;
+                PublicCards.Clear();
                 foreach (var card in cards)
                 {
-                    CardUI cardUI = new CardUI();
+                    PlayingCard cardUI = new PlayingCard();
                     cardUI.Suit = EnumChangeCardSuit(card.Suit);
                     cardUI.Value = EnumChangeCardType(card.Type);
                     cardUI.IsShown = true;
-                    CommCards.Add(cardUI);
+                    PublicCards.Add(cardUI);
                 }
+
+                for (int i = 0; i < PublicCards.Count; i++)
+                {
+                    var index = indexArray[App.PlayerNumber * 2 + i];
+                    await DealToPublic(index);
+                }
+                //if (PublicCards.Count == 3)
+                //{
+
+                //}
+                //else
+                //{
+                //    var index = indexArray[App.PlayerNumber * 2 + PublicCards.Count];
+                //    await DealToPublic(index);
+                //}
+
             });
         }
 
@@ -232,69 +220,19 @@ namespace TexasHoldem.WPF.ViewModels
                     {
                         StrSidePot = para.message;
                     }
-                    //switch (para.playerName)
-                    //{
-                    //    case "PlayerA":
-                    //        {
-                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
-                    //                PlayerACurrentPot = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Status)
-                    //                PlayerAStatus = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Action)
-                    //                PlayerAAction = para.message;
-                    //            break;
-                    //        }
-                    //    case "PlayerB":
-                    //        {
-                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
-                    //                PlayerBCurrentPot = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Status)
-                    //                PlayerBStatus = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Action)
-                    //                PlayerBAction = para.message;
-                    //            break;
-                    //        }
-                    //    case "PlayerC":
-                    //        {
-                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
-                    //                PlayerCCurrentPot = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Status)
-                    //                PlayerCStatus = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Action)
-                    //                PlayerCAction = para.message;
-                    //            break;
-                    //        }
-                    //    case "PlayerD":
-                    //        {
-                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
-                    //                PlayerDCurrentPot = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Status)
-                    //                PlayerDStatus = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Action)
-                    //                PlayerDAction = para.message;
-                    //            break;
-                    //        }
-                    //    case "PlayerE":
-                    //        {
-                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
-                    //                PlayerECurrentPot = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Status)
-                    //                PlayerEStatus = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Action)
-                    //                PlayerEAction = para.message;
-                    //            break;
-                    //        }
-                    //    case "PlayerF":
-                    //        {
-                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
-                    //                PlayerFCurrentPot = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Status)
-                    //                PlayerFStatus = para.message;
-                    //            else if (para.CurrentControl == CurrentControl.Action)
-                    //                PlayerFAction = para.message;
-                    //            break;
-                    //        }
-                    //}
+
+                    PlayerAccount? account = PlayerList.Where(x => x.Name.Equals(para.playerName)).FirstOrDefault();
+                    if (account != null)
+                    {
+                        if (para.CurrentControl == CurrentControl.CurrentPot)
+                            account.Strcurrentpot = para.message;
+                        else if (para.CurrentControl == CurrentControl.Status)
+                            account.Strstatus = para.message;
+                        else if (para.CurrentControl == CurrentControl.Action)
+                            account.Straction = para.message;
+                    }
+
+
                 }
             });
         }
@@ -302,6 +240,7 @@ namespace TexasHoldem.WPF.ViewModels
         [RelayCommand]
         async Task Deal()
         {
+
             await Task.Run(() =>
             {
                 var game = Game();
@@ -312,6 +251,21 @@ namespace TexasHoldem.WPF.ViewModels
             //如果不等待，第一张牌发不出去，头想烂了想不通为什么
             //await Task.Delay(10);
 
+            //HashSet<int> IndexSet = new();
+            //int length = 0;
+            //while (length < App.PlayerNumber * 2 + 5)
+            //{
+            //    IndexSet.Add(Random.Shared.Next(0, 51));
+            //    length = IndexSet.Count;
+            //}
+            //indexArray = IndexSet.ToArray();
+            //await DealToPlayers();
+            //await DealToPublic();
+            //ResetDealParams();
+        }
+        async Task DealToPlayers()
+        {
+            await Task.Delay(1);
             HashSet<int> IndexSet = new();
             int length = 0;
             while (length < App.PlayerNumber * 2 + 5)
@@ -320,37 +274,26 @@ namespace TexasHoldem.WPF.ViewModels
                 length = IndexSet.Count;
             }
             indexArray = IndexSet.ToArray();
-            await DealToPlayers();
-            //await DealToPublic();
-            //ResetDealParams();
-        }
-        async Task DealToPlayers()
-        {
-            await Task.Delay(1);
             for (int i = 0; i < App.PlayerNumber * 2; i++)
             {
                 var index = indexArray[i];
                 var deckToDeal = Decks[index];
                 deckToDeal.IsDealed = true;
                 DeckDealBehavior.Turn++;
-                if (i == App.PlayerNumber - 1)
-                    DeckDealBehavior.IsSecond = true;
+                //if (i == App.PlayerNumber - 1)
+                //    DeckDealBehavior.IsSecond = true;
                 await Task.Delay(200);
             }
         }
-        async Task DealToPublic()
+        async Task DealToPublic(int index)
         {
-            for (int i = App.PlayerNumber * 2; i < indexArray.Length; i++)
-            {
-                var index = indexArray[i];
-                var deckToDeal = Decks[index];
-                deckToDeal.IsPublic = true;
+            var deckToDeal = Decks[index];
+            deckToDeal.IsPublic = true;
 
-                await Task.Delay(200);
-                PublicCards[DeckDealBehavior.PublicTurn].Visibility = Visibility.Visible;
-                PublicCards[DeckDealBehavior.PublicTurn].IsShown = true;
-                DeckDealBehavior.PublicTurn++;
-            }
+            await Task.Delay(200);
+            PublicCards[DeckDealBehavior.PublicTurn].Visibility = Visibility.Visible;
+            PublicCards[DeckDealBehavior.PublicTurn].IsShown = true;
+            DeckDealBehavior.PublicTurn++;
         }
 
         #region
@@ -472,7 +415,19 @@ namespace TexasHoldem.WPF.ViewModels
 
             }));
 
+            for (int i = 0; i < App.PlayerNumber; i++)
+            {
+                if (i == 0)
+                {
+                    poker = new PokerPlayer(aggregator) { Name = PlayerList[i].Name };
+                    Players.Add(poker);
+                }
+                else if (i % 2 == 0)
+                    Players.Add(new DummyPlayer() { Name = PlayerList[i].Name });
+                else
+                    Players.Add(new SmartPlayer() { Name = PlayerList[i].Name });
 
+            }
         }
 
         void CleanTable()
@@ -480,7 +435,7 @@ namespace TexasHoldem.WPF.ViewModels
             //重置Deck
             Decks = new(Enumerable.Range(0, 52).Select(n => new PlayingDeck { Offset = (n - 27) * 4 }));
             //重置PublicCards
-            PublicCards = new(Enumerable.Range(0, 5).Select(n => new PlayingCard { Value = Value.BigJoker }));
+            PublicCards = new();
         }
 
         public void OnNavigatedTo(NavigationContext navigationContext)
