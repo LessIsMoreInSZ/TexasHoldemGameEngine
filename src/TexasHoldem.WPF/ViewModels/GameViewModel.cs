@@ -15,6 +15,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using TexasHoldem.Logic.Cards;
+using TexasHoldem.Logic.GameMechanics;
 using TexasHoldem.Logic.Players;
 using TexasHoldem.WPF.Behaviors;
 using TexasHoldem.WPF.Constants;
@@ -44,24 +45,24 @@ namespace TexasHoldem.WPF.ViewModels
         private PokerPlayer poker;
 
         List<Tuple<string, string>> aiPlayers = new()
-            {
-               new( "Player1",  "/Assets/ldh.jpg" ),
-                new( "Player2", "/Assets/wyz.jpg"),
-                new( "Player3",  "/Assets/zrf.jpg"),
-                new( "Player4",  "/Assets/pyy.jpg"),
-                new( "Player5",  "/Assets/gfc.jpg" ),
-                new( "Player6",  "/Assets/ldh.jpg" ),
-                new( "Player7", "/Assets/wyz.jpg"),
-                new( "Player8",  "/Assets/zrf.jpg"),
-                new( "Player9",  "/Assets/pyy.jpg"),
-                new( "Player10",  "/Assets/pyy.jpg"),
-                new( "Player11",  "/Assets/gfc.jpg" ),
-                new( "Player12",  "/Assets/ldh.jpg" ),
-                new( "Player13", "/Assets/wyz.jpg"),
-                new( "Player14",  "/Assets/zrf.jpg"),
-                new( "Player15",  "/Assets/pyy.jpg"),
-                new( "Player16",  "/Assets/gfc.jpg" ),
-            };
+        {
+            new( "Player1",  "/Assets/ldh.jpg" ),
+            new( "Player2", "/Assets/wyz.jpg"),
+            new( "Player3",  "/Assets/zrf.jpg"),
+            new( "Player4",  "/Assets/pyy.jpg"),
+            new( "Player5",  "/Assets/gfc.jpg" ),
+            new( "Player6",  "/Assets/ldh.jpg" ),
+            new( "Player7", "/Assets/wyz.jpg"),
+            new( "Player8",  "/Assets/zrf.jpg"),
+            new( "Player9",  "/Assets/pyy.jpg"),
+            new( "Player10",  "/Assets/pyy.jpg"),
+            new( "Player11",  "/Assets/gfc.jpg" ),
+            new( "Player12",  "/Assets/ldh.jpg" ),
+            new( "Player13", "/Assets/wyz.jpg"),
+            new( "Player14",  "/Assets/zrf.jpg"),
+            new( "Player15",  "/Assets/pyy.jpg"),
+            new( "Player16",  "/Assets/gfc.jpg" ),
+        };
 
         [ObservableProperty]
         ObservableCollection<PlayingCard> myCards = new(Enumerable.Range(0, 2).Select(n => new PlayingCard { Value = Value.LittleJoker }));
@@ -120,6 +121,7 @@ namespace TexasHoldem.WPF.ViewModels
 
         public GameViewModel(IEventAggregator _aggregator)
         {
+            this.aggregator = _aggregator;
             aggregator.GetEvent<CardEvent>().Subscribe(ShowCard);
             aggregator.GetEvent<TextChangeEvent>().Subscribe(ShowText);
             aggregator.GetEvent<CommCardEvent>().Subscribe(ShowCommCard);
@@ -230,69 +232,69 @@ namespace TexasHoldem.WPF.ViewModels
                     {
                         StrSidePot = para.message;
                     }
-                    switch (para.playerName)
-                    {
-                        case "PlayerA":
-                            {
-                                if (para.CurrentControl == CurrentControl.CurrentPot)
-                                    PlayerACurrentPot = para.message;
-                                else if (para.CurrentControl == CurrentControl.Status)
-                                    PlayerAStatus = para.message;
-                                else if (para.CurrentControl == CurrentControl.Action)
-                                    PlayerAAction = para.message;
-                                break;
-                            }
-                        case "PlayerB":
-                            {
-                                if (para.CurrentControl == CurrentControl.CurrentPot)
-                                    PlayerBCurrentPot = para.message;
-                                else if (para.CurrentControl == CurrentControl.Status)
-                                    PlayerBStatus = para.message;
-                                else if (para.CurrentControl == CurrentControl.Action)
-                                    PlayerBAction = para.message;
-                                break;
-                            }
-                        case "PlayerC":
-                            {
-                                if (para.CurrentControl == CurrentControl.CurrentPot)
-                                    PlayerCCurrentPot = para.message;
-                                else if (para.CurrentControl == CurrentControl.Status)
-                                    PlayerCStatus = para.message;
-                                else if (para.CurrentControl == CurrentControl.Action)
-                                    PlayerCAction = para.message;
-                                break;
-                            }
-                        case "PlayerD":
-                            {
-                                if (para.CurrentControl == CurrentControl.CurrentPot)
-                                    PlayerDCurrentPot = para.message;
-                                else if (para.CurrentControl == CurrentControl.Status)
-                                    PlayerDStatus = para.message;
-                                else if (para.CurrentControl == CurrentControl.Action)
-                                    PlayerDAction = para.message;
-                                break;
-                            }
-                        case "PlayerE":
-                            {
-                                if (para.CurrentControl == CurrentControl.CurrentPot)
-                                    PlayerECurrentPot = para.message;
-                                else if (para.CurrentControl == CurrentControl.Status)
-                                    PlayerEStatus = para.message;
-                                else if (para.CurrentControl == CurrentControl.Action)
-                                    PlayerEAction = para.message;
-                                break;
-                            }
-                        case "PlayerF":
-                            {
-                                if (para.CurrentControl == CurrentControl.CurrentPot)
-                                    PlayerFCurrentPot = para.message;
-                                else if (para.CurrentControl == CurrentControl.Status)
-                                    PlayerFStatus = para.message;
-                                else if (para.CurrentControl == CurrentControl.Action)
-                                    PlayerFAction = para.message;
-                                break;
-                            }
-                    }
+                    //switch (para.playerName)
+                    //{
+                    //    case "PlayerA":
+                    //        {
+                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
+                    //                PlayerACurrentPot = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Status)
+                    //                PlayerAStatus = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Action)
+                    //                PlayerAAction = para.message;
+                    //            break;
+                    //        }
+                    //    case "PlayerB":
+                    //        {
+                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
+                    //                PlayerBCurrentPot = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Status)
+                    //                PlayerBStatus = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Action)
+                    //                PlayerBAction = para.message;
+                    //            break;
+                    //        }
+                    //    case "PlayerC":
+                    //        {
+                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
+                    //                PlayerCCurrentPot = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Status)
+                    //                PlayerCStatus = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Action)
+                    //                PlayerCAction = para.message;
+                    //            break;
+                    //        }
+                    //    case "PlayerD":
+                    //        {
+                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
+                    //                PlayerDCurrentPot = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Status)
+                    //                PlayerDStatus = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Action)
+                    //                PlayerDAction = para.message;
+                    //            break;
+                    //        }
+                    //    case "PlayerE":
+                    //        {
+                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
+                    //                PlayerECurrentPot = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Status)
+                    //                PlayerEStatus = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Action)
+                    //                PlayerEAction = para.message;
+                    //            break;
+                    //        }
+                    //    case "PlayerF":
+                    //        {
+                    //            if (para.CurrentControl == CurrentControl.CurrentPot)
+                    //                PlayerFCurrentPot = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Status)
+                    //                PlayerFStatus = para.message;
+                    //            else if (para.CurrentControl == CurrentControl.Action)
+                    //                PlayerFAction = para.message;
+                    //            break;
+                    //        }
+                    //}
                 }
             });
         }
@@ -300,6 +302,11 @@ namespace TexasHoldem.WPF.ViewModels
         [RelayCommand]
         async Task Deal()
         {
+            await Task.Run(() =>
+            {
+                var game = Game();
+                game.Start();
+            });
             CleanTable();
 
             //如果不等待，第一张牌发不出去，头想烂了想不通为什么
@@ -393,6 +400,19 @@ namespace TexasHoldem.WPF.ViewModels
                 poker.EnumAction = EnumAction.Allin;
             });
         }
+
+        private ITexasHoldemGame Game()
+        {
+            var list = new List<IPlayer>();
+
+            for (int i = 0; i < Players.Count; i++)
+            {
+                list.Add(new PokerUiDecorator(aggregator, Players[i]));
+            }
+
+            return new TexasHoldemGame(list);
+
+        }
         #endregion
 
         private Value EnumChangeCardType(CardType value)
@@ -451,6 +471,7 @@ namespace TexasHoldem.WPF.ViewModels
                 return player;
 
             }));
+
 
         }
 
